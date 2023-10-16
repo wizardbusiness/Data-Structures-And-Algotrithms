@@ -16,6 +16,22 @@ Key Concepts:
 - pivot
 
 Key Strategies: 
+--SIMPLE WAY-- 
+--The Partition--
+- pick pivot
+- init two empty arrays, left and right
+- compare each el to pivot
+- if less than push to left
+- if greater than push to right
+-- The Base Case -- 
+- if arr length is 0 or 1 return the arr
+-- The Recursive Case --
+- return the spread res of calling quicksort on left, pivot, and quicksort on right [...quicksort(left), pivot, ...quicksort(right)]l
+
+-- Gotchas --
+* quicksort left and right recursive calls need to be returned, not just called
+
+
 --The Partition--
 - pick pivot
 - increment i and decrement j
