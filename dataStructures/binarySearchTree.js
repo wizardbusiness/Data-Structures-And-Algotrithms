@@ -1,8 +1,8 @@
 class Node {
   constructor(value) {
+    this.value = value;
     this.left = null;
     this.right = null;
-    this.value = value;
     this.count = 1;
   }
 }
@@ -41,11 +41,6 @@ class BST {
     }
   }
 
-  /**
-   * remove
-   * @param {number} value
-   */
-
   /**find
    * @param {number} value
    */
@@ -63,62 +58,71 @@ class BST {
     }
     return -1;
   }
-
-  remove(val) {
+  /**
+   * remove
+   * @param {number} value
+   * @param {node} root
+   * @param {node} parent
+   */
+  remove(val, root=this.root, parent=this.root, left=false) {
+    // base case 
+    // if node is null return null
+    if (root === null) return root;
     // find node
-    let parent = this.root;
-    let currNode = this.root;
-    while (currNode) {
-      if (val < currNode.value) {
-        parent = currNode;
-        currNode = currNode.left;
-      } else if (val > currNode.value) {
-        parent = currNode;
-        currNode = currNode.right;
-      } else if (val === currNode.value) {
-        // if at bottom of tree
-        if (currNode.right === null && currNode.left === null) {
-          // point parent to null
-          parent = null;
-          return this.root;
-          // if left side
-        } else if (currNode.left && currNode.right) {
-          const left = currNode.left;
-          let right = currNode.right;
-          while (right) {
-            if (left.value < right.value) {
-              if (right.left === null) {
-                right.left = left;
-                parent = right;
-                return this.root;
-              } else {
-                right = right.left;
-              }
-            } else if (left.value > right.value) {
-              if (right.right === null) {
-                right.right = left;
-                parent = right;
-                return this.root;
-              } else {
-                right = right.right;
-              }
-            }
+    if (val < root.value) this.remove(val, root.left, root, true);
+    else if (val > root.value) this.remove(val, root.right, root, false);
+    else if (val === root.value) {
+      // remove leaf
+      if (root.right === null && root.left === null) {
+        if (left === true) parent.left = null;
+        else if (left === false) parent.right = null;
+        // remove node with one child
+      } else if (root.right === null || root.left === null) {
+        // assign child to parent
+        // removes node since node is no longer assigned address
+        if (root.left === null) {
+          parent.right = root.right;
+        } else if (root.right === null) {
+          parent.left = root.left;
+        } 
+      // remove intermediate node
+      } else {
+        // save left branch
+        let  leftBranchRoot = root.left;
+        // move right branch up
+        let rightBranchRoot = root.right;
+        // if traversing left of parent, plug into parent left
+        if (left === true) {
+          parent.left = rightBranchRoot;
+          // if traversing right of parent, plug into parent right
+        } else if (left === false) {
+          parent.right = rightBranchRoot;
+        };
+        // iterate through left of new local root node until you're at the bottom
+        while (rightBranchRoot) {
+          if (rightBranchRoot.left === null) {
+            rightBranchRoot.left = leftBranchRoot;
+            return;
           }
-        }
-      }
-    }
-
-    return -1;
+          else {
+            rightBranchRoot = rightBranchRoot.left;
+          };
+        };
+      };  
+    };
+    
   }
 }
 
-const bst = new BST(8);
+const nodeVals = [18, 17, 19, 30, 34, 33, 35, 1, 3, 4, 28, 27, 29, 14];
 
-bst.add(4);
-bst.add(9);
+const bst = new BST(20);
 
-// bst.remove(9);
+nodeVals.forEach(val => {
+  bst.add(val);
+});
+bst.remove(30);
+console.dir(bst, {depth: null});
 
-console.log(bst);
 
-console.log(bst);
+
