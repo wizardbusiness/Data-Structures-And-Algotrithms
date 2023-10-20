@@ -1,4 +1,4 @@
-// node on linked list.
+// Singly linked list
 class Node {
   constructor(value) {
     this.value = value;
@@ -6,43 +6,89 @@ class Node {
   }
 }
 
-class LinkedList {
+/**
+ * Single Linked List
+ * Head is start of list
+ * Tail is end of list
+ * 
+ */
+
+class SinglyLinkedList {
   constructor() {
     this.head = null;
-    this.tail = null;
-    this.length = 0;
+    this.tail = this.head;
   }
 
-  // add a new node to the end of the list. Use two pointers for O(1) insertion.
-  addToEnd(value) {
-    // if head doesn't point to a node,
+  push(val) {
     if (!this.head) {
-      // point head to a new node passing in the value,
-      this.head = new Node(value);
-      // and point tail to head.
+      this.head = new Node(val);
       this.tail = this.head;
     } else {
-      // assign the next property on tail to point to a newly added node.
-      this.tail.next = new Node(value);
-      // assign tail to point to the next property on that new node that was just created.
-      this.tail = this.tail.next;
+      let currNode = this.head;
+      while (currNode.next) {
+        currNode = currNode.next;
+      }
+      currNode.next = new Node(val);
+      this.tail = currNode.next;
     }
-    this.length++;
+    
   }
 
-  insertAtBeginning(value) {
-    // create a new node.
-    // point head to it's next property.
-    this.new = new Node(value);
-    this.new.next = this.head;
-    this.head = this.new;
-    delete this.new;
+  unshift(val){
+    if (!this.head) {
+      this.head = new Node(val);
+      this.tail = this.head;
+    } else {
+      const newHead = new Node(val);
+      newHead.next = this.head;
+      this.head = newHead;
+    }
   }
+
+  pop() {
+    if (!this.tail) return -1;
+    let currNode = this.head;
+    while (currNode.next.next) {
+      currNode = currNode.next;
+    };
+    
+    currNode.next = null;
+    this.tail = currNode;
+    return (currNode);
+  }
+
+  delete(val) {
+    let currNode = this.head;
+    // first node
+    if (currNode.value === val && currNode === this.head) {
+      this.head = currNode.next;
+    }
+    while(currNode.next) {
+      if (currNode.next.value === val) {
+        // last node
+        if (currNode.next.next === null) {
+        this.tail = currNode;
+        } 
+        // node in middle
+        currNode.next = currNode.next.next;
+        return;
+       
+        
+      } 
+      currNode = currNode.next;
+    }
+  }
+
+
 }
 
-const ll = new LinkedList();
+const ll = new SinglyLinkedList();
 
-ll.addToEnd(1);
-ll.insertAtBeginning(2);
-ll.insertAtBeginning(2);
-console.log(ll);
+ll.push(1);
+ll.push(2);
+ll.push(3);
+ll.push(4);
+
+ll.delete(4);
+
+console.dir(ll, {depth: null})
