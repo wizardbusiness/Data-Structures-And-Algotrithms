@@ -1,7 +1,7 @@
 ---
-
-**_ALGOS TO DO_**
-
+*******************
+* DATA STRUCTURES *
+*******************
 ---
 
 **Basic Concepts**
@@ -51,11 +51,11 @@ Insert:
 - same as insert
 - return node or just value?
   Delete:
-- Tricky
-- Recursive
-- Base return root if root is null
-- While loop to search child branch for new node to replace deleted node at its location in bst.
-- Use delete method to remove nodes.
+    - Tricky
+    - Recursive
+    - Base return root if root is null
+    - While loop to search child branch for new node to replace deleted node at its location in bst.
+    - Use delete method to remove nodes. // doesnt work in strict mode
 
 _Graphs_
 
@@ -64,3 +64,61 @@ Structure: - Obj with nodes as keys and arrays of neighbor nodes as values - Tra
 Traversal:
 Depth first: - Check all nodes in one direction before checking additional nodes. - Stack - iterative or recursive
 Breadth first: - Check all neighbors nodes before checking additional nodes.
+
+_Linked Lists_
+
+Key Concepts: 
+- Nodes
+- Linked means nested
+- head and tail
+
+Singly Linked List:
+  * Key Concepts: 
+    - head
+    - tail
+    - next
+
+  * Methods: 
+      * Basic
+        - Find
+        - Push
+          * Description: add node to the end of the list;
+          * -- Key Concepts --
+            * curr
+        - Pop
+          * Description: pop the last node off the list, and return it.
+          * -- Key Concepts --
+            * currNode pointer
+            * Iterate through list
+            * remove last node
+            * reassign tail
+          * -- Gotchas --
+            * If you iterate until curr node is one you want to delete, that wont work.
+            * You needto delete the next value of currNode, not currNode itself.
+      - Add (to end)
+      - Remove
+        * -- Key Concepts --
+          * Break down by case
+            - Remove from start
+            - Remove from end
+            - Remove from Middle
+          * Tackle start and end edge cases first
+          * iterate through linked list
+        * -- Gotchas --
+          * always reassign to address, not value
+          * if node is removed from start or end, thats a different strategy
+      - Print
+    * Advanced
+      - Reverse
+      - Add (to middle)
+
+_Tries_
+
+Key Concepts:
+  - Nodes
+  - Used for alphabet strings
+  - Each node stores a char map which can have a node for every letter in alphabet- 26 max.
+  - Deeply Nested
+  - Words are retrieved by searching down a branch composed of chars
+  - Good for finding partial matches
+  - O(logn)
