@@ -30,10 +30,19 @@ class Trie {
     }
     return curr.wordEnd;
   }
+
+  startsWith(str) {
+    let curr = this.root;
+    for (let char of str) {
+      if (!(char in curr.children)) return false;
+      curr = curr.children[char]
+    }
+    return true;
+  }
 }
 
 const trie = new Trie();
-trie.insert('dog');
-trie.insert('dang');
-console.dir(trie, {depth: null});
-console.log(trie.find('dang'))
+
+
+
+

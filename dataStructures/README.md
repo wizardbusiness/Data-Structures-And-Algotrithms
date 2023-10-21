@@ -146,6 +146,9 @@ Key Concepts:
         - child node located in children
       * check if each char is present in branch
       * check the value of wordEnd property after traversing char nodes and return it
-
+  - startsWith
+    * Description: check if a word that starts with a str is stored in the trie
+    * -- Key Concepts --
+      * Same as searching for a complete word, except that if all chars are found, always return true. 
 
 
