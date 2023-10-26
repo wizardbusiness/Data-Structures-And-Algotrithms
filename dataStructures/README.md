@@ -152,3 +152,8 @@ Key Concepts:
       * Same as searching for a complete word, except that if all chars are found, always return true. 
 
 
+_Heap_
+  * Description: A balanced binary tree
+  * -- Key Concepts --
+    * Can be represented by array
+
