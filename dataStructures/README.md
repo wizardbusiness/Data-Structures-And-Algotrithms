@@ -59,10 +59,23 @@ Insert:
 
 _Graphs_
 
--Directional graphs:
-Structure: - Obj with nodes as keys and arrays of neighbor nodes as values - Traversal between nodes is unidirectional
+  - Directional Graphs -
+    - Vocabulary
+      - Nodes
+      - Neighbors
+    - Structure - Obj with nodes as keys and arrays of neighbor nodes as values- Traversal between nodes is unidirectional
+    * Gotchas
+      - You must start with a node in the stack, otherwise there is nothing to traverse to. 
+      - Be sure that structure is unidirectional and set up properly otherwise traversal code breaks.
+      
+
 Traversal:
-Depth first: - Check all nodes in one direction before checking additional nodes. - Stack - iterative or recursive
+* Depth first: 
+  - Use stack
+  - Pass starting node into stack as initial element
+  - 
+  - Check all nodes in one direction before checking additional nodes. 
+  - iterative or recursive
 Breadth first: - Check all neighbors nodes before checking additional nodes.
 
 _Linked Lists_
