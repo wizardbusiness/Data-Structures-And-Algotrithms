@@ -1,30 +1,36 @@
-// repeatedly divide the search area in half
+// divide array in half repeatedly according to whether passed in value is greater or less than that of middle value
+// if passed in is equal to middle, return true
+// if array is empty, return false
+
 /**
- * @param {array} arr
+ *
+ * @param {number[]} arr sorted array
  * @param {number} val
- * @returns {boolean} true or false
+ * @returns {boolean}
+ * recursively divides array in two until array is empty or passed in value is equal to the arrays middle value
  */
-const binarySearch = (val, arr) => {
-  // base case
-  // if array length is 0, return false
+const binarySearch = (arr, val) => {
+  // base
+  // if array is empty, return false
   if (arr.length === 0) return false;
-  // choose middle element
-  const middle = Math.floor(arr.length / 2);
-  console.log(arr[middle]);
-  // if equal to, return true
-  if (val === arr[middle]) return true;
-  // check if value is less than or greater than the element
-  // if value is less than middle, repeat with left half of array
-  if (val < arr[middle]) {
-    const halvedArrL = arr.slice(0, middle);
-    console.log(halvedArrL);
-    return binarySearch(val, halvedArrL);
-    // else if greater than middle, repeat with right half of array
-  } else if (val > arr[middle]) {
-    const halvedArrR = arr.slice(middle + 1, arr.length);
-    return binarySearch(val, halvedArrR);
+  // choose middle index
+  const midIndex = Math.floor((arr.length - 1) / 2);
+  // if val equals middle value return true
+  if (val === arr[midIndex]) return true;
+  // else if val is greater than middle value slice array from middle to end
+  else if (val > arr[midIndex]) {
+    const greaterThan = arr.slice(midIndex + 1, arr.length);
+    console.log(greaterThan);
+    return binarySearch(greaterThan, val);
+    // else if val is less than mid val slice array from start to middle
+    // recurse binary search with sliced array
+  } else if (val < arr[midIndex]) {
+    const lessThan = arr.slice(0, midIndex);
+    console.log(lessThan);
+    return binarySearch(lessThan, val);
   }
 };
 
-console.log(binarySearch(60, [1, 2, 3, 4, 6, 60, 70]));
+const test = [1, 2, 3, 4, 5, 20, 100, 101, 102, 105];
 
+console.log(binarySearch(test, 102));
