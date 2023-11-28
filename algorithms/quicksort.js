@@ -40,8 +40,41 @@
 // const test = [3, 4, 8, 1, 7, 5];
 /**
  *
+ * @param {number[]} arr
+ * @returns {number[]}
+ */
+const quicksortHard = (arr) => {
+  const partition = () => {
+    const l = [];
+    const r = [];
+    const pivot = partition[partition.length - 1];
+    const partition = arr.slice(0, arr.length - 1); // exclude pivot from partition
+    let i = 0;
+    let j = partition.length - 1;
+
+    while (i < j) {
+      let el1 = partition[i];
+      let el2 = partition[j];
+
+      if (el2 < pivot && el1 > pivot) {
+        partition[j] = el1;
+        partition[i] = el2;
+      }
+
+      if (partition[j] > pivot) j--;
+      if (partition[i] < pivot) i++;
+    }
+
+    return partition.splice(i, 0, pivot); // insert the pivot between i items less than it, and j items greater than it
+  };
+};
+
+/**
+ *
  * @param {number []} arr
  * @returns {number []}
+ *
+ * Pick a pivot, split everything to left and right, quicksort until array has one or less els
  */
 const quickSort = (arr) => {
   // base case
