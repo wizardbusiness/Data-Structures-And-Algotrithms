@@ -1,3 +1,4 @@
+const unsorted = [0, 5, 3, 2, 1, 10, 100, -100, 200, 19, 2, -200];
 // const partitionArray = (arr) => {
 //   // choose pivot
 //   const pivot = arr[arr.length - 1];
@@ -41,64 +42,78 @@
 /**
  *
  * @param {number[]} arr
+ * @param {number} low
+ * @param {number} high
  * @returns {number[]}
  */
-const quicksortHard = (arr) => {
-  const partition = () => {
-    const l = [];
-    const r = [];
-    const pivot = partition[partition.length - 1];
-    const partition = arr.slice(0, arr.length - 1); // exclude pivot from partition
-    let i = 0;
-    let j = partition.length - 1;
 
-    while (i < j) {
-      let el1 = partition[i];
-      let el2 = partition[j];
+// const hoarePartition = (arr, low, high) => {
+//   // pointers i and j
+//   let i = low - 1;
+//   let j = high + 1;
+//   // pivot arr low or high
+//   let pivot = arr[high];
+//   // move i and j towards each other while el i is less than pivot and el j is greater than pivot
+//   // and is less than j
+//   while (true) {
+//     do {
+//       i++;
+//     } while (arr[i] < pivot);
+//     do {
+//       j--;
+//     } while (arr[j] > pivot);
+//     // if i is greater than or equal to j return j
+//     if (i >= j) return j;
+//     // swap el i with el j
+//     let tempi = arr[i];
+//     arr[i] = arr[j];
+//     arr[j] = tempi;
+//   }
+// };
 
-      if (el2 < pivot && el1 > pivot) {
-        partition[j] = el1;
-        partition[i] = el2;
-      }
+// const hoaresQuicksort = (arr, low, high) => {
+//   // base
+//   // if low is less than high
+//   if (low < high) {
+//     // partition array from low to high, store in const
+//     const pivotIndex = hoarePartition(arr, low, high);
+//     // run quicksort on array from low to j as returned from partition
+//     hoaresQuicksort(arr, low, pivotIndex);
+//     // run quicksort on array from j + 1 to high
+//     hoaresQuicksort(arr, hoarePartition + 1, high);
+//   }
+// };
 
-      if (partition[j] > pivot) j--;
-      if (partition[i] < pivot) i++;
-    }
+// console.log(hoaresQuicksort(unsorted, 0, unsorted.length - 1));
 
-    return partition.splice(i, 0, pivot); // insert the pivot between i items less than it, and j items greater than it
-  };
-};
+// /**
+//  *
+//  * @param {number []} arr
+//  * @returns {number []}
+//  *
+//  * Pick a pivot, split everything to left and right, quicksort until array has one or less els
+//  */
+// const lomutoQuickSort = (arr) => {
+//   // base case
+//   // if array length is 1 return as sorted
+//   if (arr.length <= 1) return arr;
+//   // recursive
+//   // pick a pivot
+//   const pivot = arr[arr.length - 1]; // easy pivot pick, should be random to prevent worst case though
+//   // sort els less than into left and els greater than into right arrays
+//   const l = [];
+//   const r = [];
+//   arr.forEach((el) => {
+//     if (el < pivot) l.push(el);
+//     else if (el > pivot) r.push(el);
+//   });
+//   // quicksort left and right
 
-/**
- *
- * @param {number []} arr
- * @returns {number []}
- *
- * Pick a pivot, split everything to left and right, quicksort until array has one or less els
- */
-const quickSort = (arr) => {
-  // base case
-  // if array length is 1 return as sorted
-  if (arr.length <= 1) return arr;
-  // recursive
-  // pick a pivot
-  const pivot = arr[arr.length - 1]; // easy pivot pick, should be random to prevent worst case though
-  // sort els less than into left and els greater than into right arrays
-  const l = [];
-  const r = [];
-  arr.forEach((el) => {
-    if (el < pivot) l.push(el);
-    else if (el > pivot) r.push(el);
-  });
-  // quicksort left and right
+//   const left = lomutoQuickSort(l);
+//   const right = lomutoQuickSort(r);
 
-  const left = quickSort(l);
-  const right = quickSort(r);
+//   // return arrays back up, spread left, pivot and right into new array
+//   return [...left, pivot, ...right];
+// };
 
-  // return arrays back up, spread left, pivot and right into new array
-  return [...left, pivot, ...right];
-};
-
-const unsorted = [0, 5, 3, 2, 1, 10, 100, -100, 200, 19, 2, -200];
-
-console.log(quickSort(unsorted));
+// console.log(lomutoQuickSort(unsorted));
