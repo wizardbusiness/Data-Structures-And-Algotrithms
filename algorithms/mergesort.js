@@ -1,7 +1,6 @@
-
 /**
- * 
- * @param {int[]} array 
+ *
+ * @param {number[]} array
  */
 const mergeSort = (array) => {
   // base case: arrays with 1 or 0 elements are sorted, return those
@@ -12,17 +11,16 @@ const mergeSort = (array) => {
   const right = mergeSort(array.slice(mid));
   // merge sorted left and right
   return merge(left, right);
-  
-}
+};
 
 /**
- * 
- * @param {int[]} left
- * @param {int[]} right
+ *
+ * @param {number[]} left
+ * @param {number[]} right
  */
 
 const merge = (left, right) => {
-  // declare sorted variable assigned empty array. 
+  // declare sorted variable assigned empty array.
   const sorted = [];
   // loop through elements while left and right
   while (left.length && right.length) {
@@ -30,11 +28,11 @@ const merge = (left, right) => {
     // push smaller, then larger to sorted
     if (left[0] <= right[0]) {
       sorted.push(left.shift());
-    } else (sorted.push(right.shift()));
-  };
+    } else sorted.push(right.shift());
+  }
 
   return [...sorted, ...left, ...right];
-}
+};
 
 const testArr = [0, 2, 1, 10];
 

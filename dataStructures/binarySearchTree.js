@@ -1,128 +1,93 @@
+/**
+ * @class Node
+ * @constructor
+ * @param {string | number} value
+ * @property { Node | null} left - The left child node (default is null)
+ * @property { Node | null } right - The right child node (default is null)
+ * @property { number } count - The value count the node holds (for duplicate values)
+ */
+
 class Node {
   constructor(value) {
     this.value = value;
+    this.count = 0;
     this.left = null;
     this.right = null;
-    this.count = 1;
   }
 }
 
+/**
+ * @class BST
+ * @property {object} root - the binary search tree object
+ */
+
 class BST {
-  constructor(value) {
-    this.root = new Node(value);
+  constructor() {
+    this.root = null;
   }
 
   /**
-   * add
-   * @param {number} value
+   * Adds a node to the binary search tree
+   * @param {number} value - the value to be added to the tree
+   * @returns {void}
    */
 
   add(value) {
     let currNode = this.root;
+    // if root is null, add root node
+
+    if (!this.root) {
+      this.root = new Node(value);
+    }
     while (currNode) {
       if (value < currNode.value) {
         if (currNode.left === null) {
           currNode.left = new Node(value);
-          return;
+          currNode.left.count += 1;
+          break;
         } else {
           currNode = currNode.left;
         }
       } else if (value > currNode.value) {
         if (currNode.right === null) {
           currNode.right = new Node(value);
-          return;
+          currNode.right.count += 1;
+          break;
         } else {
           currNode = currNode.right;
         }
       } else if (value === currNode.value) {
-        currNode.count++;
-        return;
+        currNode.count += 1;
+        break;
       }
     }
+    // traverse the tree until a null object is found, then instantiate the new node there
+    // less than parent value, go left, more than parent value go right
   }
 
-  /**find
-   * @param {number} value
-   */
-
-  find(value) {
-    let currNode = this.root;
-    while (currNode) {
-      if (currNode.value === value)
-        return { value: currNode.value, count: currNode.count };
-      else if (value < currNode.value) {
-        currNode = currNode.left;
-      } else if (value > currNode.value) {
-        currNode = currNode.right;
-      }
-    }
-    return -1;
-  }
   /**
-   * remove
-   * @param {number} value
-   * @param {node} root
-   * @param {node} parent
+   * Deletes a node from the binary search tree
+   * @param {number} - value
+   * @returns {void}
+   *
    */
-  remove(val, root=this.root, parent=this.root, left=false) {
-    // base case 
-    // if node is null return null
-    if (root === null) return root;
-    // find node
-    if (val < root.value) this.remove(val, root.left, root, true);
-    else if (val > root.value) this.remove(val, root.right, root, false);
-    else if (val === root.value) {
-      // remove leaf
-      if (root.right === null && root.left === null) {
-        if (left === true) parent.left = null;
-        else if (left === false) parent.right = null;
-        // remove node with one child
-      } else if (root.right === null || root.left === null) {
-        // assign child to parent
-        // removes node since node is no longer assigned address
-        if (root.left === null) {
-          parent.right = root.right;
-        } else if (root.right === null) {
-          parent.left = root.left;
-        } 
-      // remove intermediate node
-      } else {
-        // save left branch
-        let  leftBranchRoot = root.left;
-        // move right branch up
-        let rightBranchRoot = root.right;
-        // if traversing left of parent, plug into parent left
-        if (left === true) {
-          parent.left = rightBranchRoot;
-          // if traversing right of parent, plug into parent right
-        } else if (left === false) {
-          parent.right = rightBranchRoot;
-        };
-        // iterate through left of new local root node until you're at the bottom
-        while (rightBranchRoot) {
-          if (rightBranchRoot.left === null) {
-            rightBranchRoot.left = leftBranchRoot;
-            return;
-          }
-          else {
-            rightBranchRoot = rightBranchRoot.left;
-          };
-        };
-      };  
-    };
-    
-  }
+
+  /**
+   * Finds a value in the binary search tree
+   * @param {number} - value
+   * @returns {boolean}
+   */
+
+  /**
+   * Prints the nodes in the binary search tree
+   * @returns {string}
+   */
 }
 
-const nodeVals = [18, 17, 19, 30, 34, 33, 35, 1, 3, 4, 28, 27, 29, 14];
+const bst = new BST();
 
-const bst = new BST(20);
-
-nodeVals.forEach(val => {
-  bst.add(val);
-});
-bst.remove(30);
-console.dir(bst, {depth: null});
-
-
-
+const values = [10, 9, 2, 4, 5, 10, 23, 2];
+function addValuesToBst(values, bst) {
+  values.forEach((value) => bst.add(value));
+}
+addValuesToBst(values, bst);
