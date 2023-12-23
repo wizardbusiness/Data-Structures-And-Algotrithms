@@ -65,34 +65,61 @@ class BST {
   /**
    * Deletes a node from the binary search tree
    * @param {number} - value
+   * @param {node} - currNode
+   * @param {node} - parent
    * @returns {void}
    *
    */
-  delete(value, currNode = this.root) {
+  delete(value, currNode = this.root, parentNode = this.root, property) {
     // base case
     // if currNode is null return -1
-
+    if (!currNode) return -1;
     // recursive
     // if value is less than currNode value
+    if (value < currNode.value) {
       // recurse currNode's left
-    // else if value is greater than currNode value
+      parentNode = currNode;
+      currNode = currNode.left;
+      this.delete(value, currNode, parentNode, "left");
+      // else if value is greater than currNode value
+    } else if (value > currNode.value) {
       // recurse currNode's right
-    // else if value equals currNode value
-    // if leaf node
-    // if currNodes 
-      // repoint parents pointer to null
-    // if one child
-      // repoint parents pointer to removed node's child
-      // right node only
+      parentNode = currNode;
+      currNode = currNode.right;
+      this.delete(value, currNode, parentNode, "right");
+      // else if value equals currNode value
+    } else if (value === currNode.value) {
+      // if leaf node
+      if (currNode.left === null && currNode.right === null) {
+        parentNode[property] = null;
+        // if one child
+        // repoint parents pointer to removed node's child
+        // right node only
         // repoint parents right to childs right
-      // left node only
+        // left node only
         // repoint parents right to childs left
-    // if two children
-      // assign temp pointer to left
-      // assign temp pointer to right
-      // point parents right to childs right
-      // traverse from temp pointer at right passing in root value of left
-      // reattach left
+      } else if (currNode.left === null || currNode.right === null) {
+        if (currNode.left === null) {
+          parentNode[property] = currNode.right;
+        } else if (currNode.right === null) {
+          parentNode[property] = currNode.left;
+        }
+        // if two children
+      } else if (currNode.left && currNode.right) {
+        const leftRoot = currNode.left;
+        const rightRoot = currNode.right;
+        let tempPointer = rightRoot;
+        parentNode[property] = rightRoot;
+        while (tempPointer) {
+          if (tempPointer.left === null) {
+            tempPointer.left = leftRoot;
+            break;
+          } else if (leftRoot.value < tempPointer.value) {
+            tempPointer = tempPointer.left;
+          }
+        }
+      }
+    }
   }
 
   /**
