@@ -86,34 +86,29 @@ const unsorted = [0, 5, 3, 2, 1, 10, 100, -100, 200, 19, 2, -200];
 
 // console.log(hoaresQuicksort(unsorted, 0, unsorted.length - 1));
 
-// /**
-//  *
-//  * @param {number []} arr
-//  * @returns {number []}
-//  *
-//  * Pick a pivot, split everything to left and right, quicksort until array has one or less els
-//  */
-// const lomutoQuickSort = (arr) => {
-//   // base case
-//   // if array length is 1 return as sorted
-//   if (arr.length <= 1) return arr;
-//   // recursive
-//   // pick a pivot
-//   const pivot = arr[arr.length - 1]; // easy pivot pick, should be random to prevent worst case though
-//   // sort els less than into left and els greater than into right arrays
-//   const l = [];
-//   const r = [];
-//   arr.forEach((el) => {
-//     if (el < pivot) l.push(el);
-//     else if (el > pivot) r.push(el);
-//   });
-//   // quicksort left and right
+/**
+ * Lomuto Quicksort
+ * @param {[]} array - unsorted array
+ */
 
-//   const left = lomutoQuickSort(l);
-//   const right = lomutoQuickSort(r);
+const lomutoQuickSort = (array) => {
+  // base case
+  if (array.length <= 1) return array;
+  // recursive
+  const l = [];
+  const r = [];
+  const pivot = array.pop();
+  array.forEach((el) => {
+    if (el < pivot) l.push(el);
+    else if (el >= pivot) r.push(el);
+  });
+  // call quicksort on each partition
+  console.log("l", l);
+  console.log("r", r);
+  const quickSortedL = lomutoQuickSort(l);
+  const quickSortedR = lomutoQuickSort(r);
 
-//   // return arrays back up, spread left, pivot and right into new array
-//   return [...left, pivot, ...right];
-// };
-
-// console.log(lomutoQuickSort(unsorted));
+  return [...quickSortedL, pivot, ...quickSortedR];
+};
+// unsorted defined at top
+console.log(lomutoQuickSort(unsorted));
