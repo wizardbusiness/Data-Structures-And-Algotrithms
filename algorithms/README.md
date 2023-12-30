@@ -7,9 +7,7 @@
 ---
 
 **Quick Sort**
-
-Description: Sorts an array in OnLog(n) time
-
+Description: Sorts an array in O(nLogn) time
 Key Concepts:
 
 - pivot
@@ -24,16 +22,17 @@ Key Strategies:
 - init two empty arrays, left and right
 - compare each el to pivot
 - if less than push to left
-- if greater than push to right
+- if greater than push to right  
   -- The Base Case --
 - if arr length is 0 or 1 return the arr
   -- The Recursive Case --
 - return the spread res of calling quicksort on left, pivot, and quicksort on right [...quicksort(left), pivot, ...quicksort(right)]
   -- Gotchas --
 
-* quicksort left and right recursive calls need to be returned, not just called
-  --STANDARD WAY--
-  --The Partition--
+  - quicksort left and right recursive calls are what is spread, not the original left and right arrays.
+  - the base case needs to be if array length is LESS THAN or equal to one. Otherwise empty arrays do not return and stack overflow.
+    --STANDARD WAY--
+    --The Partition--
 
 - pick pivot
 - increment i and decrement j
@@ -54,7 +53,7 @@ _Heap Sort_
 
 _Merge Sort_
 
-- Description: Sort an array by dividing them into sorted subarrays, and the merging those back together.
+- Description: Bifurcate an unsorted array into sorted arrays of 1 or no elements, then merge them back together
 
 - -- Key Concepts --
 
@@ -66,16 +65,14 @@ _Merge Sort_
 - Strategy
 
   - See description
-  - Base case: if array length is 0 or 1 return array
-  - Recursive case: divide array into left and right
-  - Sort and Merge:
-    - while left and right arrays
-    - compare first elements in left and right arrays
-    - shift the smaller element to new sorted array
-    - return merge of sorted, and remaining els of left and right arrays in that order.
+  - Bifurcate unsorted array into left and right halves recursively
+  - subarrays with 1 or no elements are sorted by definition
+  - to sort, compare the first elements of left and right and move them to a new sorted array.
+  - do that until either left and right doesn't have any more elements. 
+  - merge the left, sorted, and right arrays together.
 
 - Gotchas
-
+  - you must return the result of merging the arrays after bifurcating them. 
   - when sorting, use a loop (this is the n of n log n);
   - when sorting, SHIFT only the smaller element from start of one of the arrays.
   - only sort while left and right arrays BOTH contain elements.
