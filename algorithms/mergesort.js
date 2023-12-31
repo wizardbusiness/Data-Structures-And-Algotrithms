@@ -1,40 +1,45 @@
 /**
- *
- * @param {[]} array - takes an unsorted array
- * @returns {[]} - returns a sorted array
+ * mergesort
+ * Sort array by dividing it in two recursively and then merging it back together in order
+ * @param {number[]} array array of unsorted numbers
+ * @returns {number[]} sorted array
  */
+
 const mergeSort = (array) => {
-  function bifurcate(array) {
-    // split the array in two until the base case is met
-    // base case: array has 0 or 1 elements
-    console.log(array);
-    if (array.length <= 1) return array;
+  // if array has 0 or 1 elements return it as sorted
+  if (array.length <= 1) return array;
+  // split the array in half recursively
+  const mid = Math.floor(array.length / 2);
+  const left = mergeSort(array.slice(0, mid));
+  const right = mergeSort(array.slice(mid));
 
-    // recursive: bifurcate the array recursively
-    const mid = Math.floor(array.length / 2);
-    const left = bifurcate(array.slice(0, mid));
-    const right = bifurcate(array.slice(mid));
-
-    return merge(left, right);
-  }
-  function merge(left, right) {
-    // while left and right
-    const sorted = [];
-    while (left.length && right.length) {
-      // compare elements in each array
-      // sort smaller one left,
-      // sort larger right
-      if (left[0] < right[0]) {
-        sorted.push(left.shift());
-      } else {
-        sorted.push(right.shift());
-      }
-    }
-    return [...sorted, ...left, ...right];
-    // merge left, remainder and right
-  }
-  console.log(bifurcate(array));
-  return bifurcate(array);
+  // merge them back together
+  return merge(left, right);
 };
 
-mergeSort([1, 29, 19, 10, 22, 9, 0, 3]);
+/**
+ * merge
+ * merge together two arrays in sorted order
+ * @param {number[]} left - sorted array
+ * @param {number[]} right - sorted array
+ * @returns {number[]} sorted array
+ */
+
+const merge = (left, right) => {
+  const sorted = [];
+  // while left and right have elements
+  // push smaller than bigger values from left and right
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      sorted.push(left.shift());
+    } else {
+      sorted.push(right.shift());
+    }
+  }
+
+  return [...sorted, ...left, ...right];
+};
+
+const unsorted = [0, 2, 200, 100, 98, 1, 3, 5, -1, 1000, 999];
+
+console.log(mergeSort(unsorted));
