@@ -1,34 +1,19 @@
 /** Divide and Conquer. Divide array repeatedly in half until either middle element is found or array is empty */
 
 /**
- *
- * @param {number[]} arr
- * @param {number} val
- * @returns {boolean}
+ * @param {number} target - target number
+ * @param {number[]} array - sorted array
+ * @returns {number} - index of target number or -1
  */
-const binarySearch = (arr, val) => {
-  // handle edge cases
-  if (typeof val !== "number") return "invalid value";
-  if (!Array.isArray(arr)) return "no valid array found";
-  // base case
-  // if array is empty return false
-  if (arr.length === 0) return false;
-  // get mid index
-  const midIndex = Math.floor(arr.length / 2);
-  // if mid equals val, return true
-  if (typeof arr[midIndex] !== "number") return "array contains invalid values";
-  if (arr[midIndex] === val) return true;
-  // recursive
-  // if val is greater than mid, recurse with right half of array
-  if (val > arr[midIndex]) {
-    const right = arr.slice(midIndex + 1, arr.length);
-    return binarySearch(right, val);
-  } else if (val < arr[midIndex]) {
-    // else if val is less than id, recurse with left half of array
-    const left = arr.slice(0, midIndex);
-    return binarySearch(left, val);
-  }
-};
 
-const test = [1, 2, 3, 4, 5];
-console.log(binarySearch(test, 1)); // true
+const binarySearch = (array, target) => {
+  // if target is found, return index
+  // mid index
+  // split array in half
+  const midIndex = Math.floor(array.length / 2);
+  if (array[midIndex] === target) return midIndex;
+  binarySearch(array.slice(0, midIndex), target);
+  binarySearch(array.slice(midIndex + 1), target);
+
+  return -1;
+};
