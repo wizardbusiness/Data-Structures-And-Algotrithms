@@ -75,6 +75,7 @@ _Merge Sort_
   - you must return the result of merging the arrays after bifurcating them. 
   - when sorting, use a loop (this is the n of n log n);
   - when sorting, SHIFT only the smaller element from start of one of the arrays.
+  - when merging, merge sorted THEN left, then right. 
   - only sort while left and right arrays BOTH contain elements.
 
   _Binary Search_
