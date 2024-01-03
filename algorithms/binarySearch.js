@@ -3,26 +3,29 @@
 /**
  * @param {number} target - target number
  * @param {number[]} array - sorted array
+ * @param {number} start - starting index
+ * @param {number} end - ending index
  * @returns {number} - index of target number or -1
  */
 
-const binarySearch = (array, target) => {
+const binarySearch = (array, target, start = 0, end = array.length - 1) => {
   // if target is found, return index
   // mid index
-  // split array in half
+  // search from start to end
 
-  const midIndex = Math.floor(array.length / 2);
+  const midIndex = Math.floor((end - start) / 2) + start;
   if (array[midIndex] === target) return midIndex;
-  console.log(array[midIndex]);
   if (target < array[midIndex]) {
-    const left = array.slice(0, midIndex);
-    return binarySearch(left, target);
+    // console.log(midIndex);
+
+    return binarySearch(array, target, start, midIndex - 1);
   } else if (target > array[midIndex]) {
-    const right = array.slice(midIndex + 1, array.length);
-    return binarySearch(right, target);
+    return binarySearch(array, target, midIndex + 1, end);
   }
+
+  return -1;
 };
 
 const testArray = [1, 2, 4, 6, 10, 12, 1000];
 
-console.log(binarySearch(testArray, 1));
+console.log(binarySearch(testArray, 10));
