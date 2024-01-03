@@ -51,122 +51,126 @@ Insert:
 - same as insert
 - return node or just value?
   Delete:
-    - Tricky
-    - Recursive
-    - Base return root if root is null
-    - While loop to search child branch for new node to replace deleted node at its location in bst.
-    - Use delete method to remove nodes. // doesnt work in strict mode
+  - Tricky
+  - Recursive
+  - Base return root if root is null
+  - While loop to search child branch for new node to replace deleted node at its location in bst.
+  - Use delete method to remove nodes. // doesnt work in strict mode
 
 _Graphs_
 
-  - Directional Graphs -
-    - Vocabulary
-      - Nodes
-      - Neighbors
-    - Structure - Obj with nodes as keys and arrays of neighbor nodes as values- Traversal between nodes is unidirectional
-    * Gotchas
-      - You must start with a node in the stack, otherwise there is nothing to traverse to. 
-      - Be sure that structure is unidirectional and set up properly otherwise traversal code breaks.
-      
+- Directional Graphs -
+  - Vocabulary
+    - Nodes
+    - Neighbors
+  - Structure - Obj with nodes as keys and arrays of neighbor nodes as values- Traversal between nodes is unidirectional
+  * Gotchas
+    - You must start with a node in the stack, otherwise there is nothing to traverse to.
+    - Be sure that structure is unidirectional and set up properly otherwise traversal code breaks.
 
 Traversal:
-* Depth first: 
+
+- Depth first:
   - Use stack
   - Pass starting node into stack as initial element
-  - 
-  - Check all nodes in one direction before checking additional nodes. 
+  -
+  - Check all nodes in one direction before checking additional nodes.
   - iterative or recursive
-Breadth first: - Check all neighbors nodes before checking additional nodes.
+    Breadth first: - Check all neighbors nodes before checking additional nodes.
 
 _Linked Lists_
 
-Key Concepts: 
+Key Concepts:
+
 - Nodes
 - Linked means nested
 - head and tail
 
 Singly Linked List:
-  * Key Concepts: 
-    - head
-    - tail
-    - next
 
-  * Methods: 
-      * Basic
-        - Find
-        - Push
-          * Description: add node to the end of the list;
-          * -- Key Concepts --
-            * curr
-        - Pop
-          * Description: pop the last node off the list, and return it.
-          * -- Key Concepts --
-            * currNode pointer
-            * Iterate through list
-            * remove last node
-            * reassign tail
-          * -- Gotchas --
-            * If you iterate until curr node is one you want to delete, that wont work.
-            * You needto delete the next value of currNode, not currNode itself.
-      - Add (to end)
-      - Remove
-        * -- Key Concepts --
-          * Break down by case
-            - Remove from start
-            - Remove from end
-            - Remove from Middle
-          * Tackle start and end edge cases first
-          * iterate through linked list
-        * -- Gotchas --
-          * always reassign to address, not value
-          * if node is removed from start or end, thats a different strategy
-      - Print
-    * Advanced
-      - Reverse
-      - Add (to middle)
+- Key Concepts:
+
+  - head
+  - tail
+  - next
+
+- Methods:
+  - Basic
+    - Find
+    - Push
+      - Description: add node to the end of the list;
+      - -- Key Concepts --
+        - curr
+    - Pop
+      - Description: pop the last node off the list, and return it.
+      - -- Key Concepts --
+        - currNode pointer
+        - Iterate through list
+        - remove last node
+        - reassign tail
+      - -- Gotchas --
+        - If you iterate until curr node is one you want to delete, that wont work.
+        - You needto delete the next value of currNode, not currNode itself.
+  * Add (to end)
+  * Remove
+    - -- Key Concepts --
+      - Break down by case
+        - Remove from start
+        - Remove from end
+        - Remove from Middle
+      - Tackle start and end edge cases first
+      - iterate through linked list
+    - -- Gotchas --
+      - always reassign to address, not value
+      - if node is removed from start or end, thats a different strategy
+  * Print
+  - Advanced
+    - Reverse
+    - Add (to middle)
 
 _Tries_
 
 Key Concepts:
-  - Nodes
-  - Used for alphabet strings
-  - Each node stores a char map which can have a node for every letter in alphabet- 26 max.
-  - Deeply Nested
-  - Words are retrieved by searching down a branch composed of chars
-  - Good for finding partial matches
-  - O(logn)
+
+- Nodes
+- Used for alphabet strings
+- Each node stores a char map which can have a node for every letter in alphabet- 26 max.
+- Deeply Nested
+- Words are retrieved by searching down a branch composed of chars
+- Good for finding partial matches
+- O(logn)
 
 * Methods
   - insert
-    * Description: insert a string into the trie;
-    * -- Key Concepts --
-      * for loop
+    - Description: insert a string into the trie;
+    - -- Key Concepts --
+      - for loop
         - iterate through chars in word
-      * current node
+      - current node
         - point to child node in children at curr.children[char]
-      * check if char exists in children
-        - exists, point to node 
+      - check if char exists in children
+        - exists, point to node
         - doesn't exist, create new node in children
-      * end of word
+      - end of word
         - after loop, assign current nodes wordEnd property true
   - search
-    * Description: check if a complete word is stored in the trie.
-    * -- Key Concepts --
-      * for loop
+    - Description: check if a complete word is stored in the trie.
+    - -- Key Concepts --
+      - for loop
         - iterate through chars in word
-      * current node
+      - current node
         - initialy points to root
         - child node located in children
-      * check if each char is present in branch
-      * check the value of wordEnd property after traversing char nodes and return it
+      - check if each char is present in branch
+      - check the value of wordEnd property after traversing char nodes and return it
   - startsWith
-    * Description: check if a word that starts with a str is stored in the trie
-    * -- Key Concepts --
-      * Same as searching for a complete word, except that if all chars are found, always return true. 
-
+    - Description: check if a word that starts with a str is stored in the trie
+    - -- Key Concepts --
+      - Same as searching for a complete word, except that if all chars are found, always return true.
 
 _Heap_
-  * Description: A balanced binary tree
-  * -- Key Concepts --
-    * Can be represented by array
 
+- Description: A balanced binary tree
+- -- Key Concepts --
+  - Can be represented by array
+  - Elements in array represent heap levels from left to right breadthwise
