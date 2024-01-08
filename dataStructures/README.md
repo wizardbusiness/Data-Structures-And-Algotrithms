@@ -142,11 +142,14 @@ Singly Linked List:
         1. Prev points to null
         2. Curr points to head
         3. Next points to head
+        4. Tail points to head
       - Order of operations
         1. Next pointed to curr.next
         2. Curr.next pointed to prev
         3. Prev pointed to curr
         4. Curr pointed to curr.next
+      - Repoint old head to new head
+        - Head points to prev (which is always the new head of the reversed linked list)
 
     - Add (to middle)
 
