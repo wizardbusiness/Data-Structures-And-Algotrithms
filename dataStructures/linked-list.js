@@ -100,37 +100,36 @@ class LinkedList {
 
   /**
    * @method reverse
-   * @description :
-   *  Reverses a linked list in place
-   *  Uses 3 temporary pointers to keep track of and reassign the next properties of each node to the previous node.
-   *  1. Prev - the previous node in the unreversed list, which will become next in the reversed list.
-   *  2. Curr - the current node being reversed
-   *  3. Next - the next node in the unreversed list, which will become the prev node
-   * @param {ListNode} head - the head of a linked list
+   * @description Reverses a linked list in place
+   * Uses 3 pointers, prev, current, next
+   * Pointer names refer to the 3 nodes involved in reversal
+   * 1. prev - points to the current head of the reversed list
+   * 2. curr - points to the current head of the unreversed list
+   * 3. next - points to the node which will become the head of the reversed list
+   * @param {ListNode} ll - the linked list
+   * @returns {void}
    */
 
   reverse(ll) {
-    // the previous node
-    // point prev to null
+    // setup pointers
+    // prev will be the end of the list when it is reversed
     let prev = null;
-    // the next node
-    let next = ll.head;
-    // the current node
     let curr = ll.head;
-    // set tail to head before reversing
+    let next = ll.head;
+    // assign tail to head
     ll.tail = ll.head;
     while (curr) {
-      // move head to curr before each reversal
-      ll.head = curr;
-      // point next to prev
-      next = prev;
-      // point prev to curr
+      // then reassign pointers to reverse the curr node
+      // next moves to curr.next
+      next = curr.next;
+      // next property of curr becomes prev
+      curr.next = prev;
+      // prev moves to curr
       prev = curr;
-      // point curr to curr.next
-      curr = curr.next;
-      // point prev.next to next
-      prev.next = next;
+      // curr moves to curr.next
+      curr = next;
     }
+    ll.head = prev;
   }
 }
 
@@ -141,5 +140,5 @@ ll.add(3);
 ll.add(4);
 console.log(ll);
 ll.reverse(ll);
-ll.add(5);
+// ll.add(5);
 console.log(ll);
