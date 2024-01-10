@@ -28,6 +28,7 @@ const lomutoPartition = (array, low, high) => {
   //   }
   // }
   const pivot = array[high];
+  // pivot index will be the final value of low.
   // move towards the center of the partition to cover all elements.
   while (low <= high) {
     // find the first element that's greater than pivot on the left.
@@ -43,19 +44,22 @@ const lomutoPartition = (array, low, high) => {
       // swap the elements at low and high
       // so the one that's less than the pivot on the right is now on the left,
       // and the one that's greater than the pivot on the right is now on the right;
-      let temp = array[low];
-      array[low] = array[high];
-      array[high] = temp;
+      [array[high], array[low]] = [array[low], array[high]];
     }
   }
+  const pivotIndex = low;
+  [arr[pivotIndex], array[high]] = [array[high], array[pivotIndex]];
+  return pivotIndex;
 };
 
 const quicksort = (array, low = 0, high = array.length - 1) => {
+  if (low >= high) return;
   // pick index
-  if (low < high) {
-    const partitionIndex = lomutoPartition(array, low, high);
-    // recursively sort lower and upper halves of array
-    quicksort(arr, low, partitionIndex - 1);
-    quicksort(arr, partitionIndex + 1, high);
-  }
+  const partitionIndex = lomutoPartition(array, low, high);
+  // recursively sort lower and upper halves of array
+  quicksort(arr, low, partitionIndex - 1);
+  quicksort(arr, partitionIndex + 1, high);
 };
+
+quicksort(unsorted);
+console.log(unsorted);
