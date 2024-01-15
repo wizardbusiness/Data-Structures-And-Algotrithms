@@ -68,15 +68,16 @@ _Merge Sort_
   - Bifurcate unsorted array into left and right halves recursively
   - subarrays with 1 or no elements are sorted by definition
   - to sort, compare the first elements of left and right and move them to a new sorted array.
-  - do that until either left and right doesn't have any more elements. 
+  - do that until either left and right doesn't have any more elements.
   - merge the left, sorted, and right arrays together.
 
 - Gotchas
-  - you must return the result of merging the arrays after bifurcating them. 
+
+  - you must return the result of merging the arrays after bifurcating them.
   - when sorting, use a loop (this is the n of n log n);
   - when sorting, SHIFT only the smaller element from start of one of the arrays.
-  - when merging, merge sorted THEN left, then right. 
-  - only sort while left and right arrays BOTH contain elements.
+  - when merging, merge sorted THEN left, then right. (we dont know if l and r have unsorted elements)
+  - only sort while left and right arrays BOTH contain elements. MUST compare length, array can still be true when empty
 
   _Binary Search_
 
