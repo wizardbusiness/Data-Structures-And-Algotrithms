@@ -33,8 +33,8 @@ function partition(array, start, end) {
       pivotIndex++;
     }
   }
-  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
 
+  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
   return pivotIndex;
 }
 
