@@ -2,42 +2,43 @@ const unsorted = [0, 5, 3, 2, 1, 10, 100, -100, 200, 19, 2, -200];
 const unsorted2 = [20];
 
 /**
- * @function quicksort sorts an unsorted array of ints using partitioning and divide and conquer
- * @param {int[]} array of integers
+ * @function quicksort
+ * @description reverse an unsorted array of integers in place in O(nlogn) time
+ * @param {int[]} array
  * @param {int} start partition start
  * @param {int} end partition end
  */
 
-function quicksort(array, start = 0, end = array.length - 1) {
+function quicksort(array, start, end) {
   if (start >= end) return;
+  const pivotIndex = partition(array, start, end);
 
-  const partitionIndex = partition(array, start, end);
-
-  quicksort(array, start, partitionIndex - 1);
-  quicksort(array, partitionIndex + 1, end);
+  quicksort(array, start, pivotIndex - 1);
+  quicksort(array, pivotIndex + 1, end);
 }
 
 /**
- * @function partition partitions an unsorted array around a pivot
- * @param {int[]} array unsorted arrray
- * @param {int} start partition start
- * @param {int} end partition end
+ * @function partition
+ * @description sort elements to left and right of pivot value inside a partition
+ * @param {int[]} array
+ * @param {int} start
+ * @param {int} end
+ * @return {int} pivotIndex
  */
 
 function partition(array, start, end) {
-  const pivot = array[end];
+  const pivotValue = array[end];
   let pivotIndex = start;
   for (let i = start; i < end; i++) {
-    if (array[i] < pivot) {
+    if (array[i] < pivotValue) {
       [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
       pivotIndex++;
     }
   }
-
   [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
   return pivotIndex;
 }
 
-quicksort(unsorted);
+quicksort(unsorted, 0, unsorted.length - 1);
 
 console.log(unsorted);
