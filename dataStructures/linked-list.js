@@ -111,22 +111,24 @@ class LinkedList {
    */
 
   reverse(ll) {
-    // setup pointers
-    // prev will be the end of the list when it is reversed
+    // prev assigned to null
     let prev = null;
+    // curr assigned to ll head
     let curr = ll.head;
+    // next assigned to next property of curr
     let next = ll.head;
-    // assign tail to head
+
+    // point tail to head
     ll.tail = ll.head;
+    // iterate through ll
     while (curr) {
-      // then reassign pointers to reverse the curr node
-      // next moves to curr.next
+      // steps
+      // point curr next to prev
       next = curr.next;
-      // next property of curr becomes prev
       curr.next = prev;
-      // prev moves to curr
+      // point prev to curr
       prev = curr;
-      // curr moves to curr.next
+      // point curr to next
       curr = next;
     }
     ll.head = prev;
@@ -134,10 +136,12 @@ class LinkedList {
 }
 
 const ll = new LinkedList();
+ll.add(0);
 ll.add(1);
 ll.add(2);
 ll.add(3);
 ll.add(4);
+ll.add(5);
 console.log(ll);
 ll.reverse(ll);
 // ll.add(5);
