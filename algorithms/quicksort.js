@@ -3,14 +3,16 @@ const unsorted2 = [20];
 
 /**
  * @function quicksort
- * @description reverse an unsorted array of integers in place in O(nlogn) time
- * @param {int[]} array
- * @param {int} start partition start
- * @param {int} end partition end
+ * @description sorts an array of ints from smallest to greatest
+ * using a pivot element to divide and conquer and then partition the array in O(nlogn) time
+ * @param {int[]}
+ * @param {int} start - partition start
+ * @param {int} end - partition end
  */
 
-function quicksort(array, start, end) {
+function quicksort(array, start = 0, end = array.length - 1) {
   if (start >= end) return;
+
   const pivotIndex = partition(array, start, end);
 
   quicksort(array, start, pivotIndex - 1);
@@ -19,11 +21,10 @@ function quicksort(array, start, end) {
 
 /**
  * @function partition
- * @description sort elements to left and right of pivot value inside a partition
- * @param {int[]} array
- * @param {int} start
- * @param {int} end
- * @return {int} pivotIndex
+ * @description swaps elements inside a partition around a pivot value and finds the correct pivot index
+ * @param {int[]}
+ * @param {int} start partition start
+ * @param {int} end partition end
  */
 
 function partition(array, start, end) {
@@ -35,10 +36,10 @@ function partition(array, start, end) {
       pivotIndex++;
     }
   }
+
   [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
   return pivotIndex;
 }
 
-quicksort(unsorted, 0, unsorted.length - 1);
-
+quicksort(unsorted);
 console.log(unsorted);
