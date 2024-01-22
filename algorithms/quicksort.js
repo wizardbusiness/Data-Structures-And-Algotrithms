@@ -13,7 +13,7 @@ const unsorted2 = [20];
 function quicksort(array, start = 0, end = array.length - 1) {
   if (start >= end) return;
 
-  const pivotIndex = partition(array, start, end);
+  const pivotIndex = partition1(array, start, end);
 
   quicksort(array, start, pivotIndex - 1);
   quicksort(array, pivotIndex + 1, end);
@@ -27,54 +27,43 @@ function quicksort(array, start = 0, end = array.length - 1) {
  * @param {int} end partition end
  */
 
-// function partition(array, start, end) {
-//   const pivotValue = array[end];
-//   let pivotIndex = start;
+// for loop partition method
+function partition1(array, start, end) {
+  const pivotValue = array[end];
+  let pivotIndex = start;
+  for (let i = start; i < end; i++) {
+    if (array[i] < pivotValue) {
+      [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
+      pivotIndex++;
+    }
+  }
 
-//   for (let i = start; i < end; i++) {
-//     if (array[i] < pivotValue) {
-//       [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
-//       pivotIndex++;
-//     }
-//   }
-//   [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
-//   return pivotIndex;
-// }
+  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+  return pivotIndex;
+}
 
-function partition(array, start, end) {
+// while loop partition method
+function partition2(array, start, end) {
   const pivotValue = array[end];
 
   let i = start;
   let j = end;
 
-  // move i towards j until i is equal to j
   while (i <= j) {
-    if (array[i] <= pivotValue) {
+    do {
       i++;
-    }
-    if (array[j] >= pivotValue) {
+    } while (array[i] < pivotValue);
+    do {
       j--;
-    }
+    } while (array[j] > pivotValue);
 
-    if (array[i] > pivotValue && array[j] < pivotValue) {
+    if (i <= j) {
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
 
   [array[i], array[end]] = [array[end], array[i]];
-
   return i;
-
-  // if array[j] is greater than pivot value
-  // move j towards middle
-  // if array[i] is less than pivot value
-  // move i towards middle
-
-  // if array[i] is greater than pivotValue and
-  // array[j] is less than pivotValue
-  // swap
-
-  // insert pivot value at i
 }
 
 quicksort(unsorted);
