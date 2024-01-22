@@ -6,31 +6,35 @@ const unsorted = [0, 3, 1, 4, -2, 10, 8, 31];
  */
 
 function mergesort(array) {
-  if (array.length <= 1) return array;
-
-  const middle = Math.floor(array.length / 2);
-  const l = array.slice(0, middle);
-  const r = array.slice(middle);
-  return merge(mergesort(l), mergesort(r));
+  // console.log(array.length);
+  if (array.length <= 1) {
+    return array;
+  }
+  const midPoint = Math.floor(array.length / 2);
+  const l = mergesort(array.slice(0, midPoint));
+  const r = mergesort(array.slice(midPoint));
+  return merge(l, r);
 }
 
 /**
- * @function merge - merges sorted arrays together
- * @param {int[]} l - left array of ints
- * @param {int[]} r - right array of ints
+ * @function merge
+ * @param {int[]} l - unsorted array
+ * @param {int[]} r - unsorted array
+ * @returns {int[]} sorted array
  */
 
 function merge(l, r) {
   const sorted = [];
 
   while (l.length && r.length) {
-    if (l[0] <= r[0]) {
+    if (l[0] < r[0]) {
       sorted.push(l.shift());
-    } else if (r[0] < l[0]) {
+    } else if (l[0] >= r[0]) {
       sorted.push(r.shift());
     }
   }
-  return [...sorted, ...l, ...r];
+  console.log([...l, ...sorted, ...r]);
+  return [...l, ...sorted, ...r];
 }
 
-// console.log(mergesort(unsorted));
+console.log(mergesort(unsorted));
