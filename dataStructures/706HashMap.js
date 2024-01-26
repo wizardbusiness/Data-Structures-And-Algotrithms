@@ -26,31 +26,28 @@ class HashMap {
 
   set(key, val) {
     const hashIndex = this.hashValue(key);
-    const bucket = this.hashMap[hashIndex];
     const collision = !!this.hashMap[hashIndex];
-    if (!collision) {
+    const bucket = this.hashMap[hashIndex];
+    const arrayInBucket = collision && Array.isArray(this.hashMap[hashIndex]);
+    if (collision && arrayInBucket) {
+      this.hashMap[hashIndex] = [...bucket, { key: key, val: val }];
+    } else if (collision && !arrayInBucket) {
+      this.hashMap[hashIndex] = [bucket, { key: key, val: val }];
+    } else {
       this.hashMap[hashIndex] = { key: key, val: val };
-    } else if (collision) {
-      if (Array.isArray(bucket)) {
-        this.hashMap[hashIndex] = [...bucket, { key: key, val: val }];
-      } else {
-        this.hashMap[hashIndex] = [bucket, { key: key, val: val }];
-      }
     }
   }
 
   get(key) {
     const hashIndex = this.hashValue(key);
     const bucket = this.hashMap[hashIndex];
-    if (bucket) {
-      if (Array.isArray(bucket)) {
-        for (const obj of bucket) {
-          if (obj.key === key) return obj.val;
-        }
-      } else {
-        return bucket.val;
+    if (Array.isArray(bucket)) {
+      for (const item of bucket) {
+        if (item.key === key) return item.val;
       }
-    }
+    } else if (bucket.key === key) return bucket.val;
+
+    return;
   }
 
   // put
@@ -67,4 +64,4 @@ console.log(hashMap.hashMap);
 
 console.log(3 & 2);
 
-console.log(hashMap.get("general"));
+console.log(hashMap.get("hi"));
