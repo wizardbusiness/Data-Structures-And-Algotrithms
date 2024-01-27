@@ -3,17 +3,17 @@ class HashMap {
     this.hashMap = new Array(20);
   }
   /**
-   * @method hashValue
-   * @param {string} str
+   * @method hashKey
+   * @param {string} key
    * @returns {int} hash index
    */
-  hashValue(str) {
+  hashKey(keyStr) {
     let hash = 17;
-    for (let i = 0; i < str.length; i++) {
-      if (hash === 0) hash = 17;
-      hash = (hash ^ str.charCodeAt(i)) % this.hashMap.length;
+    for (let i = 0; i < keyStr.length; i++) {
+      hash = Math.pow(keyStr.charCodeAt(i), 2) * 17;
     }
-    return hash;
+
+    return hash % this.hashMap.length;
   }
   // set
   /**
@@ -25,7 +25,7 @@ class HashMap {
    */
 
   set(key, val) {
-    const hashIndex = this.hashValue(key);
+    const hashIndex = this.hashKey(key);
     const collision = !!this.hashMap[hashIndex];
     const bucket = this.hashMap[hashIndex];
     const arrayInBucket = collision && Array.isArray(this.hashMap[hashIndex]);
@@ -39,7 +39,7 @@ class HashMap {
   }
 
   get(key) {
-    const hashIndex = this.hashValue(key);
+    const hashIndex = this.hashKey(key);
     const bucket = this.hashMap[hashIndex];
     if (Array.isArray(bucket)) {
       for (const item of bucket) {
@@ -58,10 +58,9 @@ class HashMap {
 const hashMap = new HashMap();
 
 hashMap.set("hi", "there");
-hashMap.set("hi", "there");
+hashMap.set("fly", "there");
 hashMap.set("general", "kenobi");
 console.log(hashMap.hashMap);
 
 console.log(3 & 2);
-
 console.log(hashMap.get("hi"));
