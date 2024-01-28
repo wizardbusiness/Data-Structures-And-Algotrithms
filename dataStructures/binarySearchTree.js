@@ -121,6 +121,28 @@ class BST {
       }
     }
   }
+  /**
+   * @method dfs
+   * @description searches whole tree and prints all nodes in depth first order
+   */
+  printAllPaths(currNode = this.root) {
+    let paths = [];
+    const dfsPreOrder = (currNode, currPath = []) => {
+      if (currNode === null) {
+        return;
+      }
+      currPath.push(currNode.value);
+      if (currNode.left === null && currNode.right === null) {
+        paths.push([...currPath]);
+        currPath.pop();
+      } else {
+        dfsPreOrder(currNode.left, currPath);
+        dfsPreOrder(currNode.right, currPath);
+      }
+    };
+    dfsPreOrder(currNode);
+    return paths;
+  }
 
   /**
    * Finds a value in the binary search tree
@@ -144,11 +166,13 @@ class BST {
 
 const bst = new BST();
 
-const values = [10, 9, 2, 4, 5, 10, 23, 2];
+const values = [20, 10, 30, 5, 40, 0, 6, 35, 50];
 function addValuesToBst(values, bst) {
   values.forEach((value) => bst.add(value));
 }
 
 addValuesToBst(values, bst);
 
-bst;
+console.log(bst);
+
+console.log(bst.printAllPaths());
