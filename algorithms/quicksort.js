@@ -3,10 +3,8 @@ const unsorted2 = [20];
 /**
  * @function quicksort
  * @param {int[]} array
- * @param {int} start - partition start
- * @param {int} end - partition end
- * @description sorts an unsorted array of ints in place
- *
+ * @param {int} start
+ * @param {int} end
  */
 
 function quicksort(array, start = 0, end = array.length - 1) {
@@ -23,27 +21,20 @@ function quicksort(array, start = 0, end = array.length - 1) {
  * @param {int[]} array
  * @param {int} start
  * @param {int} end
- * @returns {int} pivot index
- * @description partitions elements in an array of ints around a pivot and returns the pivot index
  */
 
 function partition(array, start, end) {
-  // pivotValue
   const pivotValue = array[end];
-  // pivot index
-  let pivotIndex = start;
-
+  let partitionIndex = start;
   for (let i = start; i < end; i++) {
     if (array[i] < pivotValue) {
-      // swap elements at i and pivot index
-      [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
-      // increment pivot index
-      pivotIndex++;
+      [array[i], array[partitionIndex]] = [array[partitionIndex], array[i]];
+      partitionIndex++;
     }
   }
-  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
-  return pivotIndex;
-}
 
+  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]];
+  return partitionIndex;
+}
 quicksort(unsorted);
 console.log(unsorted);
