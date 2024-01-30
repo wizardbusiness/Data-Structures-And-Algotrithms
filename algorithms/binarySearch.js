@@ -9,17 +9,17 @@
  */
 
 const binarySearch = (array, target, start = 0, end = array.length - 1) => {
-  if (start > end) return -1;
+  if (start > end) return;
+
   const midpoint = Math.floor((start + end) / 2);
-  if (target === array[midpoint]) {
-    return midpoint;
-  } else if (target > array[midpoint]) {
+
+  if (array[midpoint] === target) return midpoint;
+  else if (target > array[midpoint])
     return binarySearch(array, target, midpoint + 1, end);
-  } else if (target < array[midpoint]) {
+  else if (target < array[midpoint])
     return binarySearch(array, target, start, midpoint - 1);
-  }
 };
 
 const testArray = [1, 2, 4, 6, 10, 12, 1000];
 
-console.log(binarySearch(testArray, 10));
+console.log(binarySearch(testArray, 1));
