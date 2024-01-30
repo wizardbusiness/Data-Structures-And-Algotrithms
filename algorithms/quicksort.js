@@ -5,36 +5,39 @@ const unsorted2 = [20];
  * @param {int[]} array
  * @param {int} start
  * @param {int} end
+ * @description swaps elements around a pivot value in partitions until the array is sorted
  */
 
 function quicksort(array, start = 0, end = array.length - 1) {
   if (start >= end) return;
-
-  const partitionIndex = partition(array, start, end);
+  const partitionIndex = merge(array, start, end);
 
   quicksort(array, start, partitionIndex - 1);
   quicksort(array, partitionIndex + 1, end);
 }
 
 /**
- * @function partition
+ * @function merge
  * @param {int[]} array
  * @param {int} start
  * @param {int} end
+ * @returns {int} partition index
+ * @description helper function for quicksort that swaps elements around pivot in a partition and finds the next partition
  */
 
-function partition(array, start, end) {
+function merge(array, start, end) {
   const pivotValue = array[end];
-  let partitionIndex = start;
+
+  let pivotIndex = start;
+
   for (let i = start; i < end; i++) {
     if (array[i] < pivotValue) {
-      [array[i], array[partitionIndex]] = [array[partitionIndex], array[i]];
-      partitionIndex++;
+      [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
+      pivotIndex++;
     }
   }
-
-  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]];
-  return partitionIndex;
+  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+  return pivotIndex;
 }
 quicksort(unsorted);
 console.log(unsorted);
