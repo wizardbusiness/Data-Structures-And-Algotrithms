@@ -9,21 +9,15 @@
  */
 
 const binarySearch = (array, target, start = 0, end = array.length - 1) => {
-  // if target is found, return index
-  // mid index
-  // search from start to end
-
-  const midIndex = Math.floor((end - start) / 2) + start;
-  if (array[midIndex] === target) return midIndex;
-  if (target < array[midIndex]) {
-    // console.log(midIndex);
-
-    return binarySearch(array, target, start, midIndex - 1);
-  } else if (target > array[midIndex]) {
-    return binarySearch(array, target, midIndex + 1, end);
+  if (start > end) return -1;
+  const midpoint = Math.floor((start + end) / 2);
+  if (target === array[midpoint]) {
+    return midpoint;
+  } else if (target > array[midpoint]) {
+    return binarySearch(array, target, midpoint + 1, end);
+  } else if (target < array[midpoint]) {
+    return binarySearch(array, target, start, midpoint - 1);
   }
-
-  return -1;
 };
 
 const testArray = [1, 2, 4, 6, 10, 12, 1000];
