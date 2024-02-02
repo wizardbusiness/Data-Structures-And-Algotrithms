@@ -7,42 +7,29 @@
 ---
 
 **Quick Sort**
-Description: Sorts an array in O(nLogn) time
+Description: Sorts an array in O(nLogn) time in place
 Key Concepts:
 
-- pivot
-- compare elements to pivot
-- divide and conquer
+-quicksort-
+
+- recursive
+- start and end pointers
+- base case: return if start is greater than or equal to end
+- find partition index with helper partition function to divide array in two
+  NOTE: the partition function also sorts the array so that elements to the left of the
+  partition are less than the element at the partition, and elements to the right are greater than.
 
 Key Strategies:
---SIMPLE WAY--
+--LOMUTO PARTITION--
 --The Partition--
 
-- pick pivot
-- init two empty arrays, left and right
-- compare each el to pivot
-- if less than push to left
-- if greater than push to right  
-  -- The Base Case --
-- if arr length is 0 or 1 return the arr
-  -- The Recursive Case --
-- return the spread res of calling quicksort on left, pivot, and quicksort on right [...quicksort(left), pivot, ...quicksort(right)]
-  -- Gotchas --
-
-  - quicksort left and right recursive calls are what is spread, not the original left and right arrays.
-  - the base case needs to be if array length is LESS THAN or equal to one. Otherwise empty arrays do not return and stack overflow.
-    --STANDARD WAY--
-    --The Partition--
-
-- pick pivot
-- increment i and decrement j
-- if i > pivot and j < pivot swap elements at i and j
-- when i crosses j, swap pivot with element at j
-  --The Split--
-- call quicksort recursively for subarrays to left and right of pivot
-- keep going until each array is either one or two elements
-  --The Merge--
-- combine each sorted subarray
+- takes in array, start and end values
+- pick pivot value
+- set pivot index to start value
+- iterate through partition from start to end
+- if elements value is less than pivot value swap with element at pivot index and increment pivot index
+- after iterating through partition, swap the element at the pivot index with the element picked for pivot value.
+  result: All the elements to left are less than the pivot value, and all the elements to the right are greater than (or equal).
 
 _Heap Sort_
 
