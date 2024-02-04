@@ -9,38 +9,73 @@
 
 /**
  * @class MaxHeap
- * @description every parent node must be larger than its children
+ * @constructor heap
+ *
  */
+
 class MaxHeap {
   constructor() {
-    this.heap = []; // use array for heap
+    this.heap = [];
   }
-  //returns parent index
+
+  /**
+   * @method parentIndex
+   * @param {int} index
+   * @description finds the index of the parent of the element at the passed in index
+   */
+
   parentIndex(index) {
     return Math.floor((index - 1) / 2);
   }
-  // returns left child index of parent
+
+  /**
+   * @method leftChildIndex
+   * @param {int} index
+   * @description finds the index of the left child of the element at the passed in index
+   */
+
   leftChildIndex(index) {
-    return 2 * index + 1;
+    return index * 2 + 1;
   }
-  // returns right child index of parent
+
+  /**
+   * @method rightChildIndex
+   * @param {int} index
+   * @description finds the index of the right child of the element at the passed in index
+   */
+
   rightChildIndex(index) {
-    return 2 * index + 2;
+    return index * 2 + 2;
   }
+
+  /**
+   * @method swap
+   * @param {int} a index of item a
+   * @param {int} b index of item b
+   * @description swaps the elements at indexes a and b
+   */
 
   swap(a, b) {
     [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
   }
+  /**
+   * @method insert
+   * @param {any} item
+   * @description inserts the passed in item into the heap and moves it to the correct location
+   */
 
   insert(item) {
-    // inserts at the bottom and then makes the inserted item 'climb' the tree
     this.heap.push(item);
     let index = this.heap.length - 1;
-    let parent = this.parentIndex(index);
-    while (this.heap[parent] && this.heap[parent] < this.heap[index]) {
-      this.swap(parent, index);
+    let parentIndex = this.parentIndex(index);
+
+    while (
+      this.heap[parentIndex] &&
+      this.heap[index] > this.heap[parentIndex]
+    ) {
+      this.swap(index, parentIndex);
       index = this.parentIndex(index);
-      parent = this.parentIndex(index);
+      parentIndex = this.parentIndex(index);
     }
   }
 }
@@ -49,5 +84,7 @@ const newHeap = new MaxHeap();
 newHeap.insert(10);
 newHeap.insert(7);
 newHeap.insert(1);
+newHeap.insert(5);
+newHeap.insert(3);
+newHeap.insert(20);
 console.log(newHeap.heap);
-console.log(newHeap.parentIndex(2));
