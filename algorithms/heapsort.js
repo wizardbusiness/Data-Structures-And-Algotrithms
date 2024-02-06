@@ -78,6 +78,33 @@ class MaxHeap {
       parentIndex = this.parentIndex(index);
     }
   }
+  /**
+   * @method remove
+   * @description removes the root of the heap
+   * larger of the two elements gets swapped with the root
+   */
+
+  remove() {
+    const removedItem = this.heap.shift();
+    this.heap.unshift(this.heap.pop());
+    let index = 0;
+    let leftChild = this.leftChildIndex(index);
+    let rightChild = this.rightChildIndex(index);
+    while (
+      this.heap[leftChild && this.heap[leftChild]] > this.heap[index] ||
+      (this.heap[rightChild] && this.heap[rightChild] > this.heap[index])
+    ) {
+      let max = leftChild;
+      if (this.heap[rightChild] && this.heap[rightChild] > this.heap[max]) {
+        max = rightChild;
+      }
+      this.swap(max, index);
+      index = max;
+      leftChild = this.leftChildIndex(max);
+      rightChild = this.rightChildIndex(max);
+    }
+    return removedItem;
+  }
 }
 
 const newHeap = new MaxHeap();
@@ -87,4 +114,6 @@ newHeap.insert(1);
 newHeap.insert(5);
 newHeap.insert(3);
 newHeap.insert(20);
+console.log(newHeap.heap);
+newHeap.remove();
 console.log(newHeap.heap);
