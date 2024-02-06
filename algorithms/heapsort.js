@@ -86,24 +86,22 @@ class MaxHeap {
 
   remove() {
     const removedItem = this.heap.shift();
-    this.heap.unshift(this.heap.pop());
+    const newRoot = this.heap.unshift(this.heap.pop());
     let index = 0;
     let leftChild = this.leftChildIndex(index);
     let rightChild = this.rightChildIndex(index);
+
     while (
-      this.heap[leftChild && this.heap[leftChild]] > this.heap[index] ||
-      (this.heap[rightChild] && this.heap[rightChild] > this.heap[index])
+      (this.heap[leftChild] && this.heap[index] < this.heap[leftChild]) ||
+      (this.heap[rightChild] && this.heap[index] < this.heap[rightChild])
     ) {
       let max = leftChild;
-      if (this.heap[rightChild] && this.heap[rightChild] > this.heap[max]) {
-        max = rightChild;
-      }
-      this.swap(max, index);
+      if (this.heap[rightChild] > this.heap[leftChild]) max = rightChild;
+      this.swap(index, max);
       index = max;
-      leftChild = this.leftChildIndex(max);
-      rightChild = this.rightChildIndex(max);
+      leftChild = this.leftChildIndex(index);
+      rightChild = this.rightChildIndex(index);
     }
-    return removedItem;
   }
 }
 
