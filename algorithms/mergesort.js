@@ -1,6 +1,6 @@
 // https://stackabuse.com/merge-sort-in-javascript/
 
-const unsorted = [0, 3, 1, 4, -2, 10, 8, 31];
+const unsorted = [0, 3, 1, 4, -2, -10, 2, 10, 8, 31];
 /**
  * @function mergesort
  * @param {int[]} array
@@ -32,7 +32,7 @@ function merge(l, r) {
     else if (r[0] <= l[0]) sorted.push(r.shift());
   }
 
-  return [...sorted, ...l, ...r]; // any remainders at end, we don't know what values they contain
+  return [...sorted, ...l, ...r];
 }
 
 console.log(mergesort(unsorted));
