@@ -74,10 +74,12 @@ _Merge Sort_
 
 - Gotchas
 
+  - when dividing array, find mid using length / 2 NOT (length - 1) / 2. Otherwise the arrays become too unbalanced / SO.
   - you must return the result of merging the arrays after bifurcating them.
-  - when sorting, use a loop (this is the n of n log n);
+  - when sorting, use a queue (this is the n of n log n);
   - when sorting, SHIFT only the smaller element from start of one of the arrays.
-  - when merging, merge sorted THEN left, then right. (we dont know if l and r have unsorted elements)
+  - when merging, merge sorted THEN left, then right.
+    (leftover elements are partially sorted, so larger elements are to the right)
   - only sort while left and right arrays BOTH contain elements. MUST compare length, array can still be true when empty
 
   _Binary Search_
