@@ -29,14 +29,28 @@ Key Strategies:
 - iterate through partition from start to end
 - if elements value is less than pivot value swap with element at pivot index and increment pivot index
 - after iterating through partition, swap the element at the pivot index with the element picked for pivot value.
-  result: All the elements to left are less than the pivot value, and all the elements to the right are greater than (or equal).
+
+Result: All the elements to left are less than the pivot value, and all the elements to the right are greater than it
 
 _Heap Sort_
 
 - Description: Sort using heap structure
 
 - -- Key Concepts --
-  - Heap
+  - Max Heap Class -
+  - Heap as array, where for index i:
+    - parent of index is at Math.floor((n - 1) / 2)
+    - left child of index is at index X 2 + 1
+    - right child of index is at index X 2 + 2
+  - Add item
+    - adds item to the bottom of the heap
+      - swaps it with its parent it is greater than
+      - does that until all the items underneath it are less than it
+  - Remove item
+    - shifts item from the top of the heap
+      - pops item from the bottom of the heap
+      - swaps item on the bottom with max child
+      - does that until heap is in correct order again
 
 _Merge Sort_
 
