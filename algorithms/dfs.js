@@ -20,13 +20,13 @@ const graph = {
  * @description recursive depth first search that uses the call stack as a stack to discover and print nodes
  */
 
-const recursiveDFS = (graph, source) => {
+function recursiveDFS(graph, source) {
   console.log(source);
+
   for (let neighbor of graph[source]) {
-    // implict return
     recursiveDFS(graph, neighbor);
   }
-};
+}
 
 recursiveDFS(graph, "a");
 
