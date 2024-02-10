@@ -38,17 +38,15 @@ recursiveDFS(graph, "a");
  */
 
 const iterativeDFS = (graph, source) => {
-  // same as the call stack
+  // stack
   const stack = [source];
+
   while (stack.length > 0) {
-    // this is the same as closing an execution context on the call stack.
     const currNode = stack.pop();
     console.log(currNode);
     for (let neighbor of graph[currNode]) {
-      // same as pushing new execution contexts onto the call stack
       stack.push(neighbor);
     }
   }
 };
-console.log("");
 iterativeDFS(graph, "a");
