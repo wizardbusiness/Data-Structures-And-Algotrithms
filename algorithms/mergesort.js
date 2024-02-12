@@ -11,9 +11,11 @@ const unsorted = [0, 3, 1, 4, -2, -10, 2, 10, 8, 31];
 
 function mergesort(array) {
   if (array.length <= 1) return array;
-  const mid = Math.floor(array.length / 2);
-  const l = mergesort(array.slice(0, mid));
-  const r = mergesort(array.slice(mid));
+
+  const midpoint = Math.floor(array.length / 2);
+
+  const l = mergesort(array.slice(0, midpoint));
+  const r = mergesort(array.slice(midpoint));
 
   return merge(l, r);
 }
@@ -28,8 +30,13 @@ function mergesort(array) {
 function merge(l, r) {
   const sorted = [];
   while (l.length && r.length) {
-    if (l[0] < r[0]) sorted.push(l.shift());
-    else if (r[0] <= l[0]) sorted.push(r.shift());
+    if (l[0] < r[0]) {
+      const smaller = l.shift();
+      sorted.push(smaller);
+    } else {
+      const smaller = r.shift();
+      sorted.push(smaller);
+    }
   }
 
   return [...sorted, ...l, ...r];
