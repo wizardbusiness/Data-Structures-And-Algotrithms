@@ -8,18 +8,17 @@
  * @returns {number} - index of target number or -1
  */
 
-const binarySearch = (array, target, start = 0, end = array.length - 1) => {
+function binarySearch(array, target, start = 0, end = array.length - 1) {
   if (start > end) return -1;
   const mid = Math.floor((start + end) / 2);
   if (target < array[mid]) {
     return binarySearch(array, target, start, mid - 1);
   } else if (target > array[mid]) {
     return binarySearch(array, target, mid + 1, end);
-  } else if (target === array[mid]) {
+  } else if (array[mid] === target) {
     return mid;
   }
-};
+}
 
 const testArray = [1, 2, 4, 6, 10, 12, 1000];
-
-console.log(binarySearch(testArray, 3));
+console.log(binarySearch(testArray, 6));
