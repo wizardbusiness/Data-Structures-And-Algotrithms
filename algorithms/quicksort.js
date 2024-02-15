@@ -5,29 +5,24 @@ const unsorted2 = [20];
  * @param {int[]} array
  * @param {int} start
  * @param {int} end
- * @description swaps elements around a pivot value in partitions until the array is sorted
  */
 
 function quicksort(array, start = 0, end = array.length - 1) {
   if (start >= end) return;
-  const partitionIndex = merge(array, start, end);
-
-  quicksort(array, start, partitionIndex - 1);
-  quicksort(array, partitionIndex + 1, end);
+  const pivotIndex = swap(array, start, end);
+  quicksort(array, start, pivotIndex - 1);
+  quicksort(array, pivotIndex + 1, end);
 }
 
 /**
- * @function merge
+ * @function swap
  * @param {int[]} array
  * @param {int} start
  * @param {int} end
- * @returns {int} partition index
- * @description helper function for quicksort that swaps elements around pivot in a partition and finds the next partition
  */
 
-function merge(array, start, end) {
+function swap(array, start, end) {
   const pivotValue = array[end];
-
   let pivotIndex = start;
 
   for (let i = start; i < end; i++) {
@@ -36,7 +31,9 @@ function merge(array, start, end) {
       pivotIndex++;
     }
   }
+
   [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+
   return pivotIndex;
 }
 quicksort(unsorted);
