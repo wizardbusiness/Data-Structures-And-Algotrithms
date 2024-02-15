@@ -1,178 +1,185 @@
 /**
  * @class Node
- * @constructor
- * @param {string | number} value
- * @property { Node | null} left - The left child node (default is null)
- * @property { Node | null } right - The right child node (default is null)
- * @property { number } count - The value count the node holds (for duplicate values)
  */
+
 class Node {
+  /**
+   * @constructor
+   * @param {*} value
+   * @property { Node | null } left - left child
+   * @property { Node | null } right - right child
+   * @property { number } count - store repeat values as a count
+   */
   constructor(value) {
     this.value = value;
-    this.count = 0;
     this.left = null;
     this.right = null;
+    this.count = 0;
   }
 }
 
 /**
- * @class BST
- * @property {object} root - the binary search tree object
+ * @class BinarySearchTree
+ * @description Child node values are less than their parents value,
+ * and the left child nodes value  is less than the right child nodes value
  */
-class BST {
+
+class BinarySearchTree {
+  /**
+   * @constructor
+   * @param {Node | null} root
+   */
+
   constructor() {
     this.root = null;
   }
 
   /**
-   * Adds a node to the binary search tree
-   * @param {number} value - the value to be added to the tree
-   * @returns {void}
+   * @method add
+   * @param {int} value
+   * @description add a value to the BST in logn time where n is the height of the bst
    */
-  add(value) {
-    let currNode = this.root;
-    // if root is null, add root node
 
-    if (!this.root) {
-      this.root = new Node(value);
-    }
-    while (currNode) {
-      if (value < currNode.value) {
-        if (currNode.left === null) {
-          currNode.left = new Node(value);
-          currNode.left.count += 1;
-          break;
+  add(value) {
+    if (this.root === null) this.root = new Node(value);
+
+    let curr = this.root;
+    while (curr) {
+      if (value < curr.value) {
+        if (curr.left) {
+          curr = curr.left;
         } else {
-          currNode = currNode.left;
+          curr.left = new Node(value);
         }
-      } else if (value > currNode.value) {
-        if (currNode.right === null) {
-          currNode.right = new Node(value);
-          currNode.right.count += 1;
-          break;
+      } else if (value > curr.value) {
+        if (curr.right) {
+          curr = curr.right;
         } else {
-          currNode = currNode.right;
+          curr.right = new Node(value);
         }
-      } else if (value === currNode.value) {
-        currNode.count += 1;
-        break;
+      } else if (value === curr.value) {
+        curr.count++;
+        return;
       }
     }
-    // traverse the tree until a null object is found, then instantiate the new node there
-    // less than parent value, go left, more than parent value go right
   }
 
   /**
-   * Deletes a node from the binary search tree
-   * @param {number} - value
-   * @param {node} - currNode
-   * @param {node} - parent
-   * @returns {void}
-   *
+   * @method remove
+   * @param {int} value
+   * @description
+   * Removes a node from a BST in nLogn time where n is the height of the bst
    */
-  delete(value, currNode = this.root, parentNode = this.root, property) {
-    // base case
-    // if currNode is null return -1
-    if (!currNode) return -1;
-    // recursive
-    // if value is less than currNode value
-    if (value < currNode.value) {
-      // recurse currNode's left
-      parentNode = currNode;
-      currNode = currNode.left;
-      this.delete(value, currNode, parentNode, "left");
-      // else if value is greater than currNode value
-    } else if (value > currNode.value) {
-      // recurse currNode's right
-      parentNode = currNode;
-      currNode = currNode.right;
-      this.delete(value, currNode, parentNode, "right");
-      // else if value equals currNode value
-    } else if (value === currNode.value) {
-      // if leaf node
-      if (currNode.left === null && currNode.right === null) {
-        parentNode[property] = null;
-        // if one child
-        // repoint parents pointer to removed node's child
-        // right node only
-        // repoint parents right to childs right
-        // left node only
-        // repoint parents right to childs left
-      } else if (currNode.left === null || currNode.right === null) {
-        if (currNode.left === null) {
-          parentNode[property] = currNode.right;
-        } else if (currNode.right === null) {
-          parentNode[property] = currNode.left;
+
+  removeLeaf(curr, parent) {
+    // if at root // we need to remove the base of the root
+    if (this.root.value === curr.value) {
+      this.root = null;
+    } else if (curr.value < parent.value) {
+      parent.left = null;
+    } else if (curr.value > parent.value) {
+      parent.right = null;
+    }
+  }
+
+  removeNodeWithChildren(curr, parent) {}
+
+  remove(value, parent = this.root, curr = this.root) {
+    // base if null return - 1
+    if (curr === null) return -1;
+    // find the values' node in the bst
+    if (value < curr.value && curr.left) {
+      parent = curr;
+      curr = curr.left;
+      return this.remove(value, parent, curr);
+    } else if (value > curr.value && curr.right) {
+      parent = curr;
+      curr = curr.right;
+      return this.remove(value, parent, curr);
+      // remove the node
+    } else if (value === curr.value) {
+      // no children
+      if (!curr.left && !curr.right) {
+        this.removeLeaf(curr, parent);
+        // one child
+      } else if (!curr.left) {
+        if (this.root.value === curr.value) {
+          this.root = parent.right;
+        } else {
+          parent.right = curr.right;
         }
-        // if two children
-      } else if (currNode.left && currNode.right) {
-        const leftRoot = currNode.left;
-        const rightRoot = currNode.right;
-        let tempPointer = rightRoot;
-        parentNode[property] = rightRoot;
-        while (tempPointer) {
-          if (tempPointer.left === null) {
-            tempPointer.left = leftRoot;
-            break;
-          } else if (leftRoot.value < tempPointer.value) {
-            tempPointer = tempPointer.left;
+      } else if (!curr.right) {
+        if (this.root.value === curr.value) {
+          this.root = curr.left;
+        }
+        parent.right = curr.left;
+        // remove node with two children
+      } else {
+        // detach the left child branch
+        // temp pointer to left child branch root
+        const temp = curr.left;
+        let tempParent = curr.right;
+        // move the nodes right child branch up to replace it
+        if (curr.value > parent.value) {
+          if (this.root.value === curr.value) {
+            this.root = curr.right;
+          } else {
+            parent.right = curr.right;
+          }
+        } else if (curr.value < parent.value) {
+          if ((this.root.value = curr.value)) {
+            this.root.left = curr.right;
+          } else {
+            parent.left = curr.right;
+          }
+        }
+        // traverse left branch of current root
+        while (tempParent) {
+          // reattach the old left child branch after iterating through the new left branch
+          if (temp.value < tempParent.value) {
+            if (tempParent.left) {
+              tempParent = tempParent.left;
+            } else {
+              tempParent.left = temp;
+              break;
+            }
           }
         }
       }
+      return curr.value;
     }
-  }
-  /**
-   * @method dfs
-   * @description searches whole tree and prints all nodes in depth first order
-   */
-  printAllPaths(currNode = this.root) {
-    let paths = [];
-    const dfsPreOrder = (currNode, currPath = []) => {
-      if (currNode === null) {
-        return;
-      }
-      currPath.push(currNode.value);
-      if (currNode.left === null && currNode.right === null) {
-        paths.push([...currPath]);
-        currPath.pop();
-      } else {
-        dfsPreOrder(currNode.left, currPath);
-        dfsPreOrder(currNode.right, currPath);
-      }
-    };
-    dfsPreOrder(currNode);
-    return paths;
   }
 
   /**
-   * Finds a value in the binary search tree
-   * @param {number} - value
-   * @returns {boolean}
+   * @method dfs
+   * @param {int} value
+   * @returns {int}
+   * @description
+   * Depth first search - traverses the binary tree starting at the
+   * and following a single branch as far possible and repeating
+   * for all branches until the node is found in n time where n is the height of the tree
    */
-  find(value) {
-    let currNode = this.root;
-    while (currNode) {
-      if (value === currNode.value) {
+
+  dfs(value) {
+    let curr = this.root;
+    while (curr) {
+      if (value < curr.value) {
+        curr = curr.left;
+      } else if (value > curr.value) {
+        curr = curr.right;
+      } else if (value === curr.value) {
         return true;
-      } else if (value < currNode.value) {
-        currNode = currNode.left;
-      } else if (value > currNode.value) {
-        currNode = currNode.right;
       }
     }
     return false;
   }
 }
 
-const bst = new BST();
+const bst = new BinarySearchTree();
 
-const values = [20, 10, 30, 5, 40, 0, 6, 35, 50];
-function addValuesToBst(values, bst) {
-  values.forEach((value) => bst.add(value));
-}
+const vals = [3, 5, 7, 4];
 
-addValuesToBst(values, bst);
-
-console.log(bst);
-
-console.log(bst.printAllPaths());
+vals.forEach((val) => bst.add(val));
+console.log(bst.root);
+console.log(bst.remove(5));
+console.log(bst.root);
