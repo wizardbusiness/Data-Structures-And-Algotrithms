@@ -161,7 +161,9 @@ class BinarySearchTree {
    */
 
   dfs(value) {
+    // traverse down the tree
     let curr = this.root;
+
     while (curr) {
       if (value < curr.value) {
         curr = curr.left;
@@ -180,6 +182,6 @@ const bst = new BinarySearchTree();
 const vals = [3, 5, 7, 4];
 
 vals.forEach((val) => bst.add(val));
-console.log(bst.root);
-console.log(bst.remove(5));
-console.log(bst.root);
+// console.log(bst.root);
+// console.log(bst.remove(5));
+// console.log(bst.root);
