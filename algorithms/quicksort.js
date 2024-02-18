@@ -8,8 +8,10 @@ const unsorted2 = [20];
  */
 
 function quicksort(array, start = 0, end = array.length - 1) {
-  if (start >= end) return;
-  const pivotIndex = swap(array, start, end);
+  if (start > end) return;
+
+  let pivotIndex = swap(array, start, end);
+
   quicksort(array, start, pivotIndex - 1);
   quicksort(array, pivotIndex + 1, end);
 }
