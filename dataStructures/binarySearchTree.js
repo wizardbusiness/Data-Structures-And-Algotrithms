@@ -175,13 +175,37 @@ class BinarySearchTree {
     }
     return false;
   }
+
+  /**
+   * @method bfs
+   * @description searches a bst breadth first
+   */
+  bfs() {
+    const queue = [];
+
+    queue.push(this.root);
+    while (queue.length) {
+      const currNode = queue.shift();
+      console.log(currNode.value);
+      if (currNode.left) queue.push(currNode.left);
+      if (currNode.right) queue.push(currNode.right);
+    }
+  }
+
+  /**
+   * @method reverse
+   * @description reverses a bst in O(n) time
+   */
+  reverse() {}
 }
 
 const bst = new BinarySearchTree();
 
-const vals = [3, 5, 7, 4];
+const vals = [4, 3, 5, 7, 2];
 
 vals.forEach((val) => bst.add(val));
 // console.log(bst.root);
 // console.log(bst.remove(5));
 // console.log(bst.root);
+
+bst.bfs();
