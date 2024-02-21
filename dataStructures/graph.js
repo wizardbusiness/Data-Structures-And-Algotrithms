@@ -12,17 +12,15 @@ const directionalGraph = {
  * go as far as possible in one direction as possible.
  * then choose a new direction.
  * structure: stack
+ * 
  */
 
-const depthFirstSearch = (graph, startNode) => {
-  const stack = [graph[startNode]];
-  const currNode = stack.pop();
-  for (const neighbor of currNode) {
-    stack.push(neighbor);
-    console.log(neighbor);
+function depthFirstSearch(graph, source) {
+  console.log(source);
+  for (let neighbor of graph[source]) {
     depthFirstSearch(graph, neighbor);
   }
-};
+}
 
 depthFirstSearch(directionalGraph, "a");
 /**
