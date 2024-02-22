@@ -111,27 +111,17 @@ class LinkedList {
    */
 
   reverse(ll) {
-    // prev assigned to null
     let prev = null;
-    // curr assigned to ll head
-    let curr = ll.head;
-    // next assigned to next property of curr
-    let next = ll.head;
-
-    // point tail to head
-    ll.tail = ll.head;
-    // iterate through ll
+    let curr = this.head;
+    let next = this.head;
+    this.tail = this.head;
     while (curr) {
-      // steps
-      // point curr next to prev
       next = curr.next;
       curr.next = prev;
-      // point prev to curr
       prev = curr;
-      // point curr to next
-      curr = next;
+      curr = curr.next;
     }
-    ll.head = prev;
+    this.head = curr;
   }
 }
 
