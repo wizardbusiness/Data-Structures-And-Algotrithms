@@ -110,7 +110,7 @@ class LinkedList {
    * @returns {void}
    */
 
-  reverse(ll) {
+  reverse() {
     let prev = null;
     let curr = this.head;
     let next = this.head;
@@ -119,9 +119,9 @@ class LinkedList {
       next = curr.next;
       curr.next = prev;
       prev = curr;
-      curr = curr.next;
+      curr = next;
     }
-    this.head = curr;
+    this.head = prev;
   }
 }
 
@@ -133,6 +133,5 @@ ll.add(3);
 ll.add(4);
 ll.add(5);
 console.log(ll);
-ll.reverse(ll);
-// ll.add(5);
+ll.reverse();
 console.log(ll);
