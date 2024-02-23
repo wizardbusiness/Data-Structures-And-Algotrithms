@@ -53,6 +53,7 @@ class LinkedList {
   remove(value) {
     // node at head
     // remove reference to head node by pointing it to next node
+    // O(1)
     if (this.head.value === value) {
       this.head = this.head.next;
       return;
@@ -79,11 +80,28 @@ class LinkedList {
    * @returns {string | number}
    */
 
+  shift() {
+    const value = this.head.value;
+    this.head = this.head.next;
+    return value;
+  }
+
   /**
    * @method pop
    * @description pops the tail of the linked list and returns its value
    * @returns {string | number}
    */
+
+  pop() {
+    let curr = this.head;
+    while (curr.next.value !== this.tail.value) {
+      curr = curr.next;
+    }
+    let poppedVal = this.tail.value;
+    curr.next = null;
+    this.tail = curr;
+    return poppedVal;
+  }
 
   /**
    * @method print
@@ -91,12 +109,32 @@ class LinkedList {
    * @returns {string}
    */
 
+  print() {
+    let print = "";
+    let curr = this.head;
+    while (curr) {
+      if (curr.next === null) print += String(curr.value);
+      else print += `${curr.value} -> `;
+      curr = curr.next;
+    }
+    return print;
+  }
+
   /**
    * @method find
    * @description Finds a value in the linked list
    * @param {string | number}
    * @returns {boolean}
    */
+
+  find(value) {
+    let curr = this.head;
+    while (curr) {
+      if (curr.value === value) return value;
+      curr = curr.next;
+    }
+    return -1;
+  }
 
   /**
    * @method reverse
@@ -133,6 +171,11 @@ ll.add(2);
 ll.add(3);
 ll.add(4);
 ll.add(5);
-console.log(ll);
+console.log(ll.print());
 ll.reverse();
 console.log(ll);
+console.log(ll.print());
+ll.pop();
+console.log(ll.print());
+ll.pop();
+console.log(ll.print());
