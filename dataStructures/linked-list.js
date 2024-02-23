@@ -115,6 +115,7 @@ class LinkedList {
     let curr = this.head;
     let next = this.head;
     this.tail = this.head;
+
     while (curr) {
       next = curr.next;
       curr.next = prev;
