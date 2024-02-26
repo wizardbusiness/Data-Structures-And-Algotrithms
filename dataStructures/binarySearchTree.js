@@ -179,17 +179,18 @@ class BinarySearchTree {
   /**
    * @method bfs
    * @description searches a bst breadth first
+   * queue
    */
   bfs() {
-    const queue = [];
-
-    queue.push(this.root);
+    let bfsPrint = "";
+    const queue = [this.root];
     while (queue.length) {
       const currNode = queue.shift();
-      console.log(currNode.value);
+      bfsPrint += currNode.value + " ";
       if (currNode.left) queue.push(currNode.left);
       if (currNode.right) queue.push(currNode.right);
     }
+    return bfsPrint;
   }
 
   /**
@@ -208,4 +209,4 @@ vals.forEach((val) => bst.add(val));
 // console.log(bst.remove(5));
 // console.log(bst.root);
 
-bst.bfs();
+console.log(bst.bfs());
