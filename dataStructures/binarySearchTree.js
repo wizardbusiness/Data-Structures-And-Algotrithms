@@ -183,13 +183,15 @@ class BinarySearchTree {
    */
   bfs() {
     let bfsPrint = "";
+
     const queue = [this.root];
     while (queue.length) {
-      const currNode = queue.shift();
-      bfsPrint += currNode.value + " ";
-      if (currNode.left) queue.push(currNode.left);
-      if (currNode.right) queue.push(currNode.right);
+      const curr = queue.shift();
+      bfsPrint += `${curr.value}, `;
+      if (curr.left) queue.push(curr.left);
+      if (curr.right) queue.push(curr.right);
     }
+
     return bfsPrint;
   }
 
