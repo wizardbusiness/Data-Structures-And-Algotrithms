@@ -1,10 +1,11 @@
 const directionalGraph = {
   a: ["b", "c"], // neighbors to a node
-  b: ["d"],
-  c: ["e"],
-  d: ["f"], // show nodes with no neighbors
+  b: ["g"],
+  c: ["d"],
+  d: ["e"], // show nodes with no neighbor
   e: [],
   f: [],
+  g: ["f"],
 };
 
 /**
@@ -12,7 +13,7 @@ const directionalGraph = {
  * go as far as possible in one direction as possible.
  * then choose a new direction.
  * structure: stack
- * 
+ *
  */
 
 function depthFirstSearch(graph, source) {
@@ -34,3 +35,17 @@ depthFirstSearch(directionalGraph, "a");
  * @param {*} graph
  * @param {*} startNode
  */
+
+function breadthFirstSeach(graph, start) {
+  const queue = [start];
+
+  while (queue.length) {
+    const currNode = queue.shift();
+    console.log(currNode);
+    for (let neighbor of graph[currNode]) {
+      queue.push(neighbor);
+    }
+  }
+}
+
+breadthFirstSeach(directionalGraph, "a");
