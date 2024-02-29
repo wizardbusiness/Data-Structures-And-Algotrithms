@@ -32,14 +32,11 @@ class LinkedList {
    */
 
   add(value) {
-    // if not head, instantiate new node with value
-    if (this.head === null) {
+    if (!this.head) {
       this.head = new ListNode(value);
       this.tail = this.head;
     } else {
-      // otherwise instantiate new node at tail
       this.tail.next = new ListNode(value);
-      // reassign tail to next
       this.tail = this.tail.next;
     }
   }
