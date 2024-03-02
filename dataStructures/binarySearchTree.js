@@ -191,7 +191,6 @@ class BinarySearchTree {
       if (curr.left) queue.push(curr.left);
       if (curr.right) queue.push(curr.right);
     }
-
     return bfsPrint;
   }
 
