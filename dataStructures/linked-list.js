@@ -42,6 +42,22 @@ class LinkedList {
   }
 
   /**
+   * @method insert
+   * @param { string | number } value
+   * @param { number } targetPosition
+   * @description Inserts a node at the target position in the linked list
+   */
+
+  insert(value, targetPosition) {
+    let currNode = this.head;
+    let currPosition = 0;
+    while (currPosition < targetPosition - 1) {
+      currNode = currNode.next;
+      currPosition++;
+    }
+  }
+
+  /**
    * @method remove
    * @description Removes a value from the linked list
    * @param {string | number} value -value to be removed from the linked list
