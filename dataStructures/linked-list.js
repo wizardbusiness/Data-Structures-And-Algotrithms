@@ -55,6 +55,9 @@ class LinkedList {
       currNode = currNode.next;
       currPosition++;
     }
+    const insertedNode = new ListNode(value);
+    insertedNode.next = currNode.next.next;
+    currNode.next = insertedNode;
   }
 
   /**
