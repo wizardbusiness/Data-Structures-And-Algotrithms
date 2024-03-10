@@ -51,12 +51,13 @@ class LinkedList {
   insert(value, targetPosition) {
     let currNode = this.head;
     let currPosition = 0;
-    while (currPosition < targetPosition - 1) {
+    while (currPosition < targetPosition) {
+      if (!currNode) return -1;
       currNode = currNode.next;
       currPosition++;
     }
     const insertedNode = new ListNode(value);
-    insertedNode.next = currNode.next.next;
+    insertedNode.next = currNode.next;
     currNode.next = insertedNode;
   }
 
@@ -194,4 +195,6 @@ console.log(ll.print());
 ll.pop();
 console.log(ll.print());
 ll.pop();
+console.log(ll.print());
+ll.insert(20, 10);
 console.log(ll.print());
