@@ -9,17 +9,16 @@ const unsorted2 = [20];
  * @description Onlogn in place sort
  */
 
-function quicksort(array, start, end) {
-  if (!start || !end) {
-    console.error("Error: Start or end value not entered!");
-    return;
+function quicksort(array, start = 0, end = array.length - 1) {
+  if (!array.length) {
+    console.error("invalid data structure");
   }
   if (start > end) return;
 
-  const pivotIndex = swap(array, start, end);
+  const pivot = swap(array, start, end);
 
-  quicksort(array, start, pivotIndex - 1);
-  quicksort(array, pivotIndex + 1, end);
+  quicksort(array, start, pivot - 1);
+  quicksort(array, pivot + 1, end);
 }
 
 /**
@@ -33,17 +32,15 @@ function quicksort(array, start, end) {
 
 function swap(array, start, end) {
   const pivotValue = array[end];
-  // increment to correct location
-  let pivotIndex = start;
-
+  let partitionIndex = start;
   for (let i = start; i < end; i++) {
     if (array[i] < pivotValue) {
-      [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
-      pivotIndex++;
+      [array[i], array[partitionIndex]] = [array[partitionIndex], array[i]];
+      partitionIndex++;
     }
   }
-  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
-  return pivotIndex;
+  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]];
+  return partitionIndex;
 }
 
 quicksort(unsorted);
