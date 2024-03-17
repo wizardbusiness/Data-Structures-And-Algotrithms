@@ -45,7 +45,7 @@
 function twoSum(array, target) {
   const hash = {};
   for (let i = 0; i < array.length; i++) {
-    if (array[i] in hash) return [i, hash[array[i]]];
+    if (array[i] in hash) return [hash[array[i]], i];
     hash[target - array[i]] = i;
   }
   return false;
