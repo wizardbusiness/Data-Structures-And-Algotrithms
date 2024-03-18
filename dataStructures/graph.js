@@ -19,11 +19,11 @@ const directionalGraph = {
 function depthFirstSearch(graph, source) {
   console.log(source);
   for (let neighbor of graph[source]) {
-    depthFirstSearch(graph, neighbor);
+    depthFirstSearch(graph, neighbor)
   }
 }
 
-depthFirstSearch(directionalGraph, "a");
+// depthFirstSearch(directionalGraph, "a");
 /**
  * breadth first traversal
  * explore all neighbors of a node before searching additional nodes.
@@ -39,7 +39,7 @@ depthFirstSearch(directionalGraph, "a");
 function breadthFirstSeach(graph, start) {
   const queue = [start];
 
-  while (queue.length) {
+  while(queue.length) {
     const currNode = queue.shift();
     console.log(currNode);
     for (let neighbor of graph[currNode]) {
