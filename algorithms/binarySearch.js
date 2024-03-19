@@ -10,15 +10,17 @@
 
 function binarySearch(array, target, start = 0, end = array.length - 1) {
   if (start > end) return -1;
+
   const mid = Math.floor((start + end) / 2);
+
   if (target < array[mid]) {
     return binarySearch(array, target, start, mid - 1);
   } else if (target > array[mid]) {
     return binarySearch(array, target, mid + 1, end);
-  } else if (array[mid] === target) {
+  } else if (target === array[mid]) {
     return mid;
   }
 }
 
 const testArray = [1, 2, 4, 6, 10, 12, 1000];
-console.log(binarySearch(testArray, 6));
+console.log(binarySearch(testArray, 2)); // 3
