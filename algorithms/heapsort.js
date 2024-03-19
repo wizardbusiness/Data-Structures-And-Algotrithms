@@ -65,18 +65,18 @@ class MaxHeap {
    */
 
   insert(item) {
+    // push onto the heap
     this.heap.push(item);
-    let index = this.heap.length - 1;
-    let parentIndex = this.parentIndex(index);
-
-    while (
-      this.heap[parentIndex] &&
-      this.heap[index] > this.heap[parentIndex]
-    ) {
-      this.swap(index, parentIndex);
-      index = this.parentIndex(index);
-      parentIndex = this.parentIndex(index);
+    let itemIndex = this.heap.length - 1;
+    let itemParentIndex = this.parentIndex(itemIndex)
+    // while parent node in heap range, and parent node value is less than item node value
+    // move item node up the heap
+    while(this.heap[itemParentIndex] && this.heap[itemParentIndex] < this.heap[itemIndex]) {
+      this.swap(itemIndex,itemParentIndex);
+      itemIndex = itemParentIndex;
+      itemParentIndex = this.parentIndex(itemIndex)
     }
+
   }
   /**
    * @method remove
@@ -106,12 +106,11 @@ class MaxHeap {
 }
 
 const newHeap = new MaxHeap();
-newHeap.insert(10);
-newHeap.insert(7);
-newHeap.insert(1);
-newHeap.insert(5);
-newHeap.insert(3);
-newHeap.insert(20);
+
+let insertItems = [1, 3, 4, 20, 9]
+insertItems.forEach(item => newHeap.insert(item))
+
+
 console.log(newHeap.heap);
-newHeap.remove();
+// newHeap.remove();
 console.log(newHeap.heap);
