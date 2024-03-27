@@ -15,10 +15,9 @@ function quicksort(array, start = 0, end = array.length - 1) {
   }
   if (start > end) return;
 
-  const pivot = swap(array, start, end);
-
-  quicksort(array, start, pivot - 1);
-  quicksort(array, pivot + 1, end);
+  const partition = swap(array, start, end);
+  quicksort(array, start, partition - 1);
+  quicksort(array, partition + 1, end);
 }
 
 /**
@@ -39,7 +38,8 @@ function swap(array, start, end) {
       partitionIndex++;
     }
   }
-  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]];
+
+  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]]
   return partitionIndex;
 }
 
