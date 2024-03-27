@@ -1,47 +1,44 @@
-const unsorted = [0, 5, 3, 2, 1, 10, 100, -100, 200, 19, 2, -200];
+const unsorted = [0, 5, 3, 2, 1, 10, -100, 100, 200, 19, 2, 100];
 const unsorted2 = [20];
 
 /**
  * @function quicksort
- * @param {int[]} array
- * @param {int} start
- * @param {int} end
- * @description Onlogn in place sort
+ * @param {number[]} array
+ * @param {number} start
+ * @param {number} end 
+ * @description sorts an array in Onlogn time by swapping numbers around a pivot value inside partitions 
  */
 
-function quicksort(array, start = 0, end = array.length - 1) {
-  if (!array.length) {
-    console.error("invalid data structure");
-  }
+function quicksort(array, start=0, end=array.length - 1) {
   if (start > end) return;
-
-  const partition = swap(array, start, end);
-  quicksort(array, start, partition - 1);
-  quicksort(array, partition + 1, end);
+  const partitionIndex = swap(array, start, end);
+  quicksort(array, start, partitionIndex - 1);
+  quicksort(array, partitionIndex + 1, end);
 }
 
 /**
  * @function swap
- * @param {int[]} array
- * @param {int} start
- * @param {int} end
- * @return {int} pivotIndex
- * @description swaps elements in On time and returns pivot index
+ * @param {number[]} array
+ * @param {number} start
+ * @param {number} end
+ * @description chooses a pivot value, and then swaps elements in place until everything
+ * to its left and right is greater than and less than its value 
  */
 
 function swap(array, start, end) {
   const pivotValue = array[end];
-  let partitionIndex = start;
+  let startIndex = start;
   for (let i = start; i < end; i++) {
     if (array[i] < pivotValue) {
-      [array[i], array[partitionIndex]] = [array[partitionIndex], array[i]];
-      partitionIndex++;
+      [array[startIndex], array[i]] = [array[i], array[startIndex]];
+      startIndex++;
     }
   }
-
-  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]]
-  return partitionIndex;
-}
+  [array[startIndex], array[end]] = [array[end], array[startIndex]];
+  return startIndex;
+};
 
 quicksort(unsorted);
-console.log(unsorted);
+console.log(unsorted)
+
+
