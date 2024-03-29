@@ -24,56 +24,79 @@ class MaxHeap {
    * @description finds the index of the parent of the element at the passed in index
    */
 
-  parentIndex(index) {
+  parentIndex(index) { 
     return Math.floor((index - 1) / 2)
   }
 
   /**
-   * @method leftChildIndex
-   * @param {int} index
-   * @description finds the index of the left child of the element at the passed in index
+   * @method leftChild
+   * @param {number} index
+   * @description finds the left child index from the passed in parent index
    */
 
-  leftChildIndex(index) {
-    return index * 2 + 1
+  leftChild(index) {
+    return index * 2 + 1;
   }
 
   /**
    * @method rightChildIndex
-   * @param {int} index
-   * @description finds the index of the right child of the element at the passed in index
+   * @param {number} index
+   * @description finds the right child index from the passed in parent index
    */
 
-  rightChildIndex(index) {
-    return index * 2 + 2
+  rightChild(index) {
+    return index * 2 + 2;
   }
 
   /**
    * @method swap
-   * @param {int} a index of item a
-   * @param {int} b index of item b
-   * @description swaps the elements at indexes a and b
+   * @param {number} a
+   * @param {number} b 
+   * @description swaps the elements at index a and b. used to move elements up the heap
    */
 
   swap(a, b) {
     [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]]
-    return 
   }
+
+
   /**
    * @method insert
    * @param {any} item
    * @description inserts the passed in item into the heap and moves it to the correct location
    */
 
-  insert(item) {
-    this.heap.push(item);
-    let index = this.heap.length - 1
-    let parentIndex = this.parentIndex(index);
+  // insert(item) {
+  //   this.heap.push(item);
+  //   let index = this.heap.length - 1
+  //   let parentIndex = this.parentIndex(index);
     
-    while(this.heap[parentIndex] && this.heap[parentIndex] <  this.heap[index] ) {
-      this.swap(parentIndex, index);
-      index = this.parentIndex(index)
-      parentIndex = this.parentIndex(index)
+  //   while(this.heap[parentIndex] && this.heap[parentIndex] <  this.heap[index] ) {
+  //     this.swap(parentIndex, index);
+  //     index = this.parentIndex(index)
+  //     parentIndex = this.parentIndex(index)
+  //   }
+
+  // }
+
+  /**
+   * @method insert 
+   * @param {number} value
+   * @description inserts a value at the bottom of the heap and moves it to the correct location in the heap
+   */
+
+  insert(value) {
+    // insert at bottom
+    this.heap.push(value);
+    // get index
+    // get parent index 
+    let index = this.heap.length - 1;
+    let pIndex = this.parentIndex(index);
+
+    while (this.heap[pIndex] && this.heap[index] > this.heap[pIndex]) {
+      this.swap(index, pIndex);
+      index = pIndex;
+      pIndex = this.parentIndex(index);
     }
 
   }
@@ -108,7 +131,7 @@ class MaxHeap {
 
 const newHeap = new MaxHeap();
 
-let insertItems = [1, 4, 10, 20, 30, 19, 412]
+let insertItems = [5, 10, 11, 0]
 insertItems.forEach(item => newHeap.insert(item))
 
 
