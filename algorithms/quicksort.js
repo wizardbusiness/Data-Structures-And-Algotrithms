@@ -3,42 +3,40 @@ const unsorted2 = [20];
 
 /**
  * @function quicksort
- * @param {number[]} array
+ * @param{number[]} array
  * @param {number} start
- * @param {number} end 
- * @description sorts an array in Onlogn time by swapping numbers around a pivot value inside partitions 
+ * @param {number} end
+ * @description recursively partitions array 
  */
 
 function quicksort(array, start=0, end=array.length - 1) {
   if (start > end) return;
-  const partitionIndex = swap(array, start, end);
-  quicksort(array, start, partitionIndex - 1);
-  quicksort(array, partitionIndex + 1, end);
-}
 
+  const pIndex = swap(array, start, end);
+
+  quicksort(array, start, pIndex - 1);
+  quicksort(array, pIndex + 1, end);
+}
 /**
- * @function swap
- * @param {number[]} array
+ * @function swap 
+ * @param{number[]} array
  * @param {number} start
  * @param {number} end
- * @description chooses a pivot value, and then swaps elements in place until everything
- * to its left and right is greater than and less than its value 
+ * @description swaps elements in partition and returns the partition index
  */
 
 function swap(array, start, end) {
-  const pivotValue = array[end];
-  let startIndex = start;
-  for (let i = start; i < end; i++) {
-    if (array[i] < pivotValue) {
-      [array[startIndex], array[i]] = [array[i], array[startIndex]];
+  const pivot = array[end]
+  let startIndex = 0;
+  for (let i = start; i < array.length; i++) {
+    if (array[i] < pivot) {
+      [array[i], array[startIndex]] = [array[startIndex], array[i]]
       startIndex++;
     }
   }
   [array[startIndex], array[end]] = [array[end], array[startIndex]];
   return startIndex;
-};
+}
 
-quicksort(unsorted);
-console.log(unsorted)
-
+quicksort(unsorted)
 
