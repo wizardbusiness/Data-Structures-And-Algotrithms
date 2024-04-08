@@ -33,18 +33,19 @@ function depthFirstSearch(graph, source) {
 /**
  * Iterative approach
  * @param {*} graph
- * @param {*} source
+ * @param {*} startNode
  */
 
-const BFS = (graph, source) => {
-  const queue = [source]; 
+function breadthFirstSearch(graph, start) {
+  const queue = [start];
+
   while(queue.length) {
     const currNode = queue.shift();
-    console.log(currNode)
+    console.log(currNode);
     for (let neighbor of graph[currNode]) {
       queue.push(neighbor);
     }
   }
 }
 
-BFS(directionalGraph, "a")
+breadthFirstSearch(directionalGraph, "a");
