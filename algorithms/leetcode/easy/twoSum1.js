@@ -45,10 +45,10 @@
 function twoSum(array, target) {
   const hash = {};
   for (let i = 0; i < array.length; i++) {
-    if (array[i] in hash) return [hash[array[i]], i];
-    hash[target - array[i]] = i;
+    if (target - array[i] in hash) return [hash[target - array[i]], i];
+    hash[array[i]] = i 
   }
-  return false;
+  return -1;
 }
 
 console.log(twoSum([1, 2, 6, 4, 0], 2));
