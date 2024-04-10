@@ -4,41 +4,39 @@ const unsorted = [0, 3, 1, 4, -2, -10, 2, 10, 8, 31];
 
 /**
  * @function mergesort
- * @param {int[]} array unsorted
- * @return {int[]} sorted
- * @description O(nlogn) time O(nlogn) space stable sort
+ * @param {number[]} array
+ * @description recursively divides array and merges it to sort in nlogn time and n space
  */
 
 function mergesort(array) {
-  const mid = array.length / 2;
-
-  // base
   if (array.length <= 1) return array;
-  // REMEMBER TO ACTUALLY CALL MERGESORT HAHAHA
-  const l = mergesort(array.slice(0, mid));
-  const r = mergesort(array.slice(mid));
+  const mid = Math.floor(array.length / 2);
+  const left = mergesort(array.slice(0, mid));
+  const right = mergesort(array.slice(mid));
 
-  // merge
-  return merge(l, r);
+  return merge(left, right)
 }
 
 /**
  * @function merge
- * @param {int[]} l unsorted
- * @param {int[]} r unsorted
- * @returns {int[]} [l < r , l, r]
- * @description O(n) time O(n) space queue and merge operation
+ * @param {number[]} left 
+ * @param {number[]} right
+ * @description merges two halves of array with elements in order
  */
 
-function merge(l, r) {
+function merge(left, right) {
   const sorted = [];
-  while (l.length && r.length) {
-    if (l[0] < r[0]) {
-      sorted.push(l.shift());
+  while(left.length && right.length) {
+    if (left[0] < right[0]) {
+      sorted.push(left.shift());
     } else {
-      sorted.push(r.shift());
+      sorted.push(right.shift());
     }
   }
-  return [...sorted, ...l, ...r];
+  return [...sorted, ...left, ...right];
 }
-console.log(mergesort(unsorted));
+
+console.log(mergesort(unsorted))
+
+
+
