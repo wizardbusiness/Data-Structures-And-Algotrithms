@@ -44,7 +44,7 @@ class MaxHeap {
    * @description finds the right child index from the passed in parent index
    */
 
-  rightChild(index) {
+  rightChildIndex(index) {
     return index * 2 + 2;
   }
 
@@ -59,26 +59,6 @@ class MaxHeap {
     [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]]
   }
 
-
-  /**
-   * @method insert
-   * @param {any} item
-   * @description inserts the passed in item into the heap and moves it to the correct location
-   */
-
-  // insert(item) {
-  //   this.heap.push(item);
-  //   let index = this.heap.length - 1
-  //   let parentIndex = this.parentIndex(index);
-    
-  //   while(this.heap[parentIndex] && this.heap[parentIndex] <  this.heap[index] ) {
-  //     this.swap(parentIndex, index);
-  //     index = this.parentIndex(index)
-  //     parentIndex = this.parentIndex(index)
-  //   }
-
-  // }
-
   /**
    * @method insert 
    * @param {number} value
@@ -86,20 +66,16 @@ class MaxHeap {
    */
 
   insert(value) {
-    // insert at bottom
     this.heap.push(value);
-    // get index
-    // get parent index 
     let index = this.heap.length - 1;
-    let pIndex = this.parentIndex(index);
-
-    while (this.heap[pIndex] && this.heap[index] > this.heap[pIndex]) {
-      this.swap(index, pIndex);
-      index = pIndex;
-      pIndex = this.parentIndex(index);
+    let parentIndex = this.parentIndex(index);
+    while(parentIndex >= 0 && this.heap[index] > this.heap[parentIndex]) {
+      this.swap(index, parentIndex)
+      index = parentIndex;
+      parentIndex = this.parentIndex(index);
     }
-
   }
+
   /**
    * @method remove
    * @description removes the root of the heap
