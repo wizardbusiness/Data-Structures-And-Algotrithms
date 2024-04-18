@@ -68,11 +68,11 @@ class MaxHeap {
   insert(value) {
     this.heap.push(value);
     let index = this.heap.length - 1;
-    let parentIndex = this.parentIndex(index);
-    while(parentIndex >= 0 && this.heap[index] > this.heap[parentIndex]) {
-      this.swap(index, parentIndex)
-      index = parentIndex;
-      parentIndex = this.parentIndex(index);
+    let pIndex = this.parentIndex(index);
+    while(index > -1 && this.heap[pIndex] < this.heap[index]) {
+      this.swap(index, pIndex);
+      index = pIndex;
+      pIndex = this.parentIndex(pIndex);
     }
   }
 
