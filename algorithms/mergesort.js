@@ -8,13 +8,15 @@ const unsorted = [0, 3, 1, 4, -2, -10, 2, 10, 8, 31];
  * @description recursively divides array and merges it to sort in nlogn time and n space
  */
 
+
 function mergesort(array) {
   if (array.length <= 1) return array;
   const mid = Math.floor(array.length / 2);
-  const left = mergesort(array.slice(0, mid));
-  const right = mergesort(array.slice(mid));
+  const l = mergesort(array.slice(0, mid));
+  const r = mergesort(array.slice(mid));
 
-  return merge(left, right)
+  return merge(l, r)
+  
 }
 
 /**
@@ -26,14 +28,15 @@ function mergesort(array) {
 
 function merge(left, right) {
   const sorted = [];
-  while(left.length && right.length) {
+  while (left.length > 0 && right.length > 0) {
     if (left[0] < right[0]) {
       sorted.push(left.shift());
     } else {
       sorted.push(right.shift());
     }
   }
-  return [...sorted, ...left, ...right];
+
+  return [...sorted, ...left, ...right]
 }
 
 console.log(mergesort(unsorted))
