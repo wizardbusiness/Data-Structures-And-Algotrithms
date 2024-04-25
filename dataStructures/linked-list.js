@@ -33,12 +33,13 @@ class LinkedList {
 
   add(value) {
     if (!this.head) {
-      this.head = new ListNode(value);
+      this.head = new ListNode(value)
       this.tail = this.head;
-    } else {
-      this.tail.next = new ListNode(value);
-      this.tail = this.tail.next;
-    }
+      return;
+    } 
+
+    this.tail.next = new ListNode(value);
+    this.tail = this.tail.next;
   }
 
   /**
