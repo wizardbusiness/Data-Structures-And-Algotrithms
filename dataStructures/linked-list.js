@@ -46,20 +46,22 @@ class LinkedList {
    * @method insert
    * @param { string | number } value
    * @param { number } targetPosition
-   * @description Inserts a node at the target position in the linked list
+   * @description Inserts a node after the target position in the linked list
    */
 
-  insert(value, targetPosition) {
-    let currNode = this.head;
-    let currPosition = 0;
-    while (currPosition < targetPosition) {
-      if (!currNode) return -1;
-      currNode = currNode.next;
-      currPosition++;
+  insert(value, target) {
+    let curr = this.head;
+    let position = 0
+    while (position < target - 1) {
+      if (!curr) return -1;
+      curr = curr.next;
+      position++;
     }
-    const insertedNode = new ListNode(value);
-    insertedNode.next = currNode.next;
-    currNode.next = insertedNode;
+    const inserted = new ListNode(value);
+    inserted.next = curr.next;
+    if (curr === this.tail) this.tail = inserted
+    curr.next = inserted;
+    
   }
 
   /**
@@ -201,12 +203,12 @@ console.log(ll.print());
 ll.reverse();
 console.log(ll);
 console.log(ll.print());
-ll.poop();
+ll.pop();
 console.log(ll.print());
-ll.poop();
+ll.pop();
 console.log(ll.print());
-ll.insert(20, 10);
+ll.insert(20, 4);
 console.log(ll.print());
-ll.poop();
+ll.pop();
 
 
