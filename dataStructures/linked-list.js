@@ -111,14 +111,22 @@ class LinkedList {
    */
 
   pop() {
-    let curr = this.head;
-    while (curr.next.value !== this.tail.value) {
+    const value = this.tail.value;
+    if (this.tail === this.head) {
+      this.head = null;
+      this.tail = null;
+      return
+    }
+
+    let curr = this.head; 
+
+    while(curr.next.next) {
       curr = curr.next;
     }
-    let poppedVal = this.tail.value;
-    curr.next = null;
     this.tail = curr;
-    return poppedVal;
+    curr.next = null;
+    
+    return value
   }
 
   /**
@@ -193,9 +201,12 @@ console.log(ll.print());
 ll.reverse();
 console.log(ll);
 console.log(ll.print());
-ll.pop();
+ll.poop();
 console.log(ll.print());
-ll.pop();
+ll.poop();
 console.log(ll.print());
 ll.insert(20, 10);
 console.log(ll.print());
+ll.poop();
+
+
