@@ -1,10 +1,5 @@
-/**
- * @class Node
- * @constructor
- * @param {string | number} value - value being stored in linked list
- * @param {Node | null} next - pointer to next node in linked list
- */
-
+// linked list
+// Node
 class ListNode {
   constructor(value) {
     this.value = value;
@@ -12,203 +7,125 @@ class ListNode {
   }
 }
 
-/**
- * @class LinkedList
- * @constructor
- * @param {ListNode | null} head - the head of the list
- * @param {ListNode | null} tail - the tail of the list
- */
-
+// Linked List
 class LinkedList {
-  constructor() {
+  constructor(value) {
     this.head = null;
     this.tail = null;
+    if (value) this.push(value);
   }
 
-  /**
-   * @method add
-   * @param {string | number} value - value to be added to the tail of the linked list
-   * @description Adds a value to the linked list.
-   */
-
-  add(value) {
+  push(value) {
+    // instantiate head node if needed
     if (!this.head) {
-      this.head = new ListNode(value)
+      this.head = new ListNode(value);
       this.tail = this.head;
       return;
-    } 
-
+    }
+    // attach node at tail.
     this.tail.next = new ListNode(value);
+    // point tail to end of list
     this.tail = this.tail.next;
   }
 
-  /**
-   * @method insert
-   * @param { string | number } value
-   * @param { number } targetPosition
-   * @description Inserts a node after the target position in the linked list
-   */
-
-  insert(value, target) {
-    let curr = this.head;
-    let position = 0
-    while (position < target - 1) {
-      if (!curr) return -1;
-      curr = curr.next;
-      position++;
-    }
-    const inserted = new ListNode(value);
-    inserted.next = curr.next;
-    if (curr === this.tail) this.tail = inserted
-    curr.next = inserted;
-    
-  }
-
-  /**
-   * @method remove
-   * @description Removes a value from the linked list
-   * @param {string | number} value -value to be removed from the linked list
-   */
-
-  remove(value) {
-    // node at head
-    // remove reference to head node by pointing it to next node
-    // O(1)
-    if (this.head.value === value) {
-      this.head = this.head.next;
-      return;
-    }
-    // node in body including tail
-    // iterate through the list until you find the value being removed
-    let currNode = this.head;
-    while (currNode) {
-      if (currNode.next.value === value) {
-        // point the next reference on the previous node to the next node of the node to be removed
-        currNode.next = currNode.next.next;
-        if (currNode.next === null) this.tail = currNode;
-        return;
-      }
-      currNode = currNode.next;
-    }
-    // if value not found return -1
-    return -1;
-  }
-
-  /**
-   * @method shift
-   * @description shifts the head of the linked list and returns its value
-   * @returns {string | number}
-   */
-
-  shift() {
-    const value = this.head.value;
+  // remove head of ll and return value
+  pop() {
+    if (!this.head) return null;
+    // point head to next node
+    let value = this.head.value
     this.head = this.head.next;
+
     return value;
   }
 
-  /**
-   * @method pop
-   * @description pops the tail of the linked list and returns its value
-   * @returns {string | number}
-   */
-
-  pop() {
-    const value = this.tail.value;
-    if (this.tail === this.head) {
-      this.head = null;
+  // remove tail of ll and return value
+  shift() {
+    if (!this.head) {
       this.tail = null;
-      return
-    }
-
-    let curr = this.head; 
-
-    while(curr.next.next) {
+      return this.tail;
+    };
+    if (!this.head.next) {
+      const value = this.head.value
+      this.tail = null;
+      this.head = this.tail;
+      return value
+    };
+    // get second to last node
+    let curr = this.head;
+    while(curr.next?.next) {
       curr = curr.next;
     }
-    this.tail = curr;
+    // point its next value to null
+    let value = curr.next.value;
     curr.next = null;
-    
-    return value
+    // point the tail to that node. 
+    this.tail = curr;
+    return value;
   }
 
-  /**
-   * @method print
-   * @description Prints the values in the linked list in sequence
-   * @returns {string}
-   */
+  deleteIndex(index) {
+    // edge cases 
+    // empty list return null
+    if (!this.head) return null;
+    // node at start point head to next node
+    let currIndex = 0
+    let currNode = this.head
+    while(currIndex < index - 1) {
+      if (!currNode.next) {
+        return null;
+      }
+      currNode = currNode.next;
+      currIndex++;
+    } 
 
-  print() {
-    let print = "";
-    let curr = this.head;
-    while (curr) {
-      if (curr.next === null) print += String(curr.value);
-      else print += `${curr.value} -> `;
-      curr = curr.next;
+    if (!currNode.next.next) {
+      this.shift();
+      return;
     }
-    return print;
+    // point that nodes next value to the node after the one at the position
+    currNode.next = currNode.next.next;
   }
 
-  /**
-   * @method find
-   * @description Finds a value in the linked list
-   * @param {string | number}
-   * @returns {boolean}
-   */
-
-  find(value) {
-    let curr = this.head;
-    while (curr) {
-      if (curr.value === value) return value;
-      curr = curr.next;
+  deleteValue(value) {
+    if (this.head.value === value) {
+      this.pop(); 
+      return;
+    };
+    let deletedValue;
+    let currNode = this.head;
+    while(currNode.next){
+      if (currNode.next.value === value) {
+        if (!currNode.next.next) {
+          deletedValue = this.shift()
+          return deletedValue
+        }
+        deletedValue = currNode.next.value;
+        currNode.next = currNode.next.next;
+        return deletedValue;
+      }
+      currNode = currNode.next;
     }
-    return -1;
   }
 
-  /**
-   * @method reverse
-   * @description Reverses a linked list in place
-   * Uses 3 pointers, prev, current, next
-   * Pointer names refer to the 3 nodes involved in reversal
-   * 1. prev - points to the current head of the reversed list
-   * 2. curr - points to the current head of the unreversed list
-   * 3. next - points to the node which will become the head of the reversed list
-   * @param {ListNode} ll - the linked list
-   * @returns {void}
-   */
-
-  reverse() {
-    let prev = null;
-    let curr = this.head;
-    let next = this.head;
-    this.tail = this.head;
-
-    while (curr) {
-      next = curr.next;
-      curr.next = prev;
-      prev = curr;
-      curr = next;
-    }
-    this.head = prev;
-  }
 }
 
-const ll = new LinkedList();
-ll.add(0);
-ll.add(1);
-ll.add(2);
-ll.add(3);
-ll.add(4);
-ll.add(5);
-console.log(ll.print());
-ll.reverse();
-console.log(ll);
-console.log(ll.print());
-ll.pop();
-console.log(ll.print());
-ll.pop();
-console.log(ll.print());
-ll.insert(20, 4);
-console.log(ll.print());
-ll.pop();
+const ll = new LinkedList(1);
+ll.push(2);
+ll.push(3);
+
+// ll.deleteIndex(1)
+ll.deleteValue(2)
+console.log(ll)
+
+
+
+
+
+
+console.log(ll)
+
+
+
+
 
 
