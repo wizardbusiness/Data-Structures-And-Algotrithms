@@ -14,7 +14,8 @@ class LinkedList {
     this.tail = null;
     if (value) this.push(value);
   }
-
+  
+  // add a node to the end of the linked list.
   push(value) {
     // instantiate head node if needed
     if (!this.head) {
@@ -27,6 +28,34 @@ class LinkedList {
     // point tail to end of list
     this.tail = this.tail.next;
   }
+
+    // add a node to the list head
+    unshift(value) {
+      let newNode = new ListNode(value);
+      newNode.next = this.head;
+      this.head = newNode;
+      if (!this.tail) this.tail = this.head;
+    } 
+    
+    // insert a node at the index
+    insert(value, index) {
+      if (index === 0) {
+        this.unshift(value);
+        return;
+      }
+      let currIndex = 0;
+      let currNode = this.head
+      while (currIndex < index - 1) {
+        if (!currNode) return `index not found in list of length ${currIndex}`;
+        currNode = currNode.next;
+        currIndex++;
+      }
+  
+      let newNode = new ListNode(value);
+      newNode.next = currNode.next;
+      currNode.next = newNode;
+      return;
+    }
 
   // remove head of ll and return value
   pop() {
@@ -106,23 +135,8 @@ class LinkedList {
       currNode = currNode.next;
     }
   }
-
 }
 
-const ll = new LinkedList(1);
-ll.push(2);
-ll.push(3);
-
-// ll.deleteIndex(1)
-ll.deleteValue(2)
-console.log(ll)
-
-
-
-
-
-
-console.log(ll)
 
 
 
