@@ -36,7 +36,7 @@ class LinkedList {
       this.head = newNode;
       if (!this.tail) this.tail = this.head;
     } 
-    
+
     // insert a node at the index
     insert(value, index) {
       if (index === 0) {
@@ -92,7 +92,7 @@ class LinkedList {
     return value;
   }
 
-  deleteIndex(index) {
+  deleteNodeAt(index) {
     // edge cases 
     // empty list return null
     if (!this.head) return null;
@@ -135,8 +135,34 @@ class LinkedList {
       currNode = currNode.next;
     }
   }
+
+  reverse() {
+    let prev = null;
+    let curr = this.head;
+    let next = this.head;
+
+    this.tail = this.head;
+    while(curr) {
+      next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+    }
+    this.head = prev;
+  }
+
+  convertArrayToList(arr) {
+    arr.forEach(val => this.push(val));
+  }
 }
 
+const ll = new LinkedList();
+
+ll.convertArrayToList([1, 2, 3, 4, 5])
+
+ll.reverse()
+
+console.log(ll)
 
 
 
