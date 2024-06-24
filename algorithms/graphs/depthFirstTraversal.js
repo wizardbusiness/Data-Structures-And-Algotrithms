@@ -10,10 +10,10 @@ const graph = {
 // recursive
 const depthFirstSearch = (graph, source) => {
   console.log(source);
-
   for (let neighbor of graph[source]) {
     depthFirstSearch(graph, neighbor);
   }
+  
 }
 
 
