@@ -1,0 +1,60 @@
+class binaryNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// manual binary tree
+
+const a = new binaryNode("a");
+const b = new binaryNode("b");
+const c = new binaryNode("c");
+const d = new binaryNode("d");
+const e = new binaryNode("e");
+const f = new binaryNode("f");
+
+a.left = b;
+a.right = c;
+b.left = d;
+b.right = e;
+c.left = f;
+
+/**
+ *             a
+ *           /  \
+ *         b     c
+ *       /  \   / \ 
+ *     d    e  f   null
+ * 
+*/
+// iterative
+const treeIncludes = (root, value) => {
+  if (!root) return false
+  const queue = [ root ];
+  while(queue.length > 0) {
+    const curr = queue.shift();
+    if (curr.value === value) {
+      return true;
+    }  
+    if (curr.left) queue.push(curr.left);
+    if (curr.right) queue.push(curr.right); 
+  }
+
+  return false;
+}
+
+// recursive depth first
+const treeIncludesRec = (root, value) => {
+  if (!root) return false;
+  if (root.value === value) return true;
+  const left = treeIncludes(root.left, value);
+  const right = treeIncludes(root.right, value);
+  // if either left or returns true, return true, otherwise return false
+  return (right || left)
+} 
+
+console.log(treeIncludes(a, 'g'));
+console.log(treeIncludesRec(a, 'a'));
+
