@@ -1,10 +1,13 @@
 
 *Definitions*
 
+**DIFFERENT THAN BINARY SEARCH TREE**
+
 Binary Tree  
 - Each node has at most 2 children
 - Exactly 1 root
 - Exactly 1 path between root and any node
+- Unordered nodes
 
 Node
 - An object containing a value and 2 pointers which point to child nodes (or to null). 
