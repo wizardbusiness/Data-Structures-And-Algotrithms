@@ -7,26 +7,29 @@ const graph = {
   f: []
 }
 
-// recursive
-const depthFirstSearch = (graph, source) => {
-  console.log(source);
-  for (let neighbor of graph[source]) {
-    depthFirstSearch(graph, neighbor);
-  }
-  
-}
+// depth first iterative
 
-
-const depthFirstSearchIterative = (graph, source) => {
-  const stack = [source];
-
+const depthFirstI = (graph, src) => {
+  const stack = [ src ];
+  const path = [];
   while (stack.length > 0) {
-    const currNode = stack.pop();
-    console.log(currNode);
-    for (let neighbor of graph[currNode]) {
+    const curr = stack.pop();
+    path.push(curr);
+    for (let neighbor of graph[curr]) {
       stack.push(neighbor);
     }
   }
+  return path;
 }
-depthFirstSearch(graph, "a")
-depthFirstSearchIterative(graph, "a")
+
+console.log(depthFirstI(graph, "a"))
+
+const depthFirstR = (graph, src) => {
+  let path = [ src ];
+  for (let neighbor of graph[src]) {
+    path = [...path, ...depthFirstR(graph, neighbor)];
+  }
+  return path;
+};
+
+console.log(depthFirstR(graph, "a"));
