@@ -1,12 +1,22 @@
 // check if you can traverse from the source to the destination node of an acyclic graph
 
+// const graph = {
+//   f: ['g', 'i'],
+//   g: ['h'],
+//   h: [],
+//   i: ['k'],
+//   j: ['i'],
+//   k: [],
+// }
+
 const graph = {
-  f: ['g', 'i'],
-  g: ['h'],
-  h: [],
-  i: ['k'],
-  j: ['i'],
-  k: [],
+  a: ['g', 'b'],
+  g: ['c'],
+  b: ['g'],
+  g: [],
+  x: ['y'],
+  y: ['z'],
+  z: [],
 }
 
 /**
@@ -17,52 +27,18 @@ const graph = {
  * @returns 
  */
 
-// iterative
-const hasPath1 = (graph, src, dest) => {
-  const stack = [src];
-
-  while (stack.length > 0) {
-    const currNode = stack.pop();
-    if (currNode === dest) return true;
-    for (let neighbor of graph[currNode]) {
-      stack.push(neighbor)
+// iterative acyclic graph
+const hasPath = (graph, src, dest) => {
+  const queue = [ src ];
+  while(queue.length > 0) {
+    const curr = queue.shift();
+    if (curr === dest) return true;
+    for (let neighbor of graph[curr]) {
+      queue.push(neighbor)
     }
   }
-  return false;
-}
 
-console.log(hasPath1(graph, "g", "h"))
-
-// recursive
-
-/**
- * 
- * @param {object} graph
- * @param {keyof graph} src 
- * @param {key of graph} dest 
- * @returns {boolean}
- */
-const hasPath2 = (graph, src, dest) => {
-  if (src === dest) return true;
-  for (let neighbor of graph[src]) {
-    if (hasPath2(graph, neighbor, dest) === true) return true
-  }
   return false
 }
 
-console.log(hasPath2(graph, "f", "h"))
-
-// iterative breadth first
-const hasPath3 = (graph, src, dest) => {
-  const queue = [src];
-
-  while(queue.length > 0) {
-    const currNode = queue.shift();
-    if (currNode === dest) return true;
-    for (let neighbor of graph[currNode]) {
-      queue.push(graph[neighbor]);
-    }
-  }
-
-  return false;
-}
+console.log(hasPath(graph, "a", "z"))
