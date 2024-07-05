@@ -1,4 +1,3 @@
-// 
 
 // edges between nodes
 const edges = [
@@ -22,9 +21,7 @@ const graph = {
   o: ["n"],
 }
 
-// time o(e) where e is edges space o(n) where n is nodes
-
-const makeGraphFromEdges = (edges) => {
+const buildGraph = (edges) => {
   const graph = {};
 
   for (let edge of edges) {
@@ -34,43 +31,49 @@ const makeGraphFromEdges = (edges) => {
     graph[a].push(b);
     graph[b].push(a);
   }
-  return graph;
+
+  return graph
 }
 
-// iterative dft
-const undirectedPath1 = (edges, start='i', end='n') => {
-  const graph = makeGraphFromEdges(edges);
-  const visited = { [start]: true }
+// undirectedPath - check if there is a path between two nodes in a cyclic undirected graph
+// time o(e) where e is edges space o(n) where n is nodes
 
-  const stack = [start];
+const builtGraph = buildGraph(edges);
 
-  while(stack.length > 0) {
-    const currNode = stack.pop();
-
-    if (currNode === end) return true;
-    for (let neighbor of graph[currNode]) {
-      if (!visited[neighbor]) stack.push(neighbor);
-      visited[neighbor] = true;
-    }
+const undirectedPath = (graph, src, dest, visited=new Set()) => {
+  if (src === dest) return true;
+  if (!(src in graph)) return false
+  if (visited.has(src)) return false;
+  
+  for (let neighbor of graph[src]) {
+    visited.add(src);
+    if(undirectedPath(graph, neighbor, dest, visited) === true) return true;
   }
-  return false;
-}
-
-console.log(undirectedPath1(edges, "i", "m"))
-
-const undirectedPath2 = (graph, start, end, visited={}) => {
-  if (start === end) return true;
-  if (visited[start]) return false;
-  visited[start] = true;
-  for (let neighbor of graph[start]) {
-    if (undirectedPath2(graph, neighbor, end, visited) === true) {
-      return true;
-    }
-    
-  }
-
   
   return false;
 }
 
-console.log(undirectedPath2(graph, "i", "o"))
+// better to do with depth first, but just for kicks
+const undirectedPathI = (graph, src, dest) => {
+  if (!(src in graph)) return false;
+
+  const visited = new Set();
+  
+  const queue = [ src ];
+
+  while (queue.length > 0) {
+    const curr = queue.shift();
+    visited.add(curr);
+    if (curr === dest) return true;
+    for (let neighbor of graph[curr]) {
+      if (!visited.has(neighbor)) queue.push(neighbor);
+    }
+  }
+
+  return false;
+}
+
+console.log(undirectedPath(graph, "i", "k"));
+console.log(undirectedPathI(graph, "i", "k"));
+
+
