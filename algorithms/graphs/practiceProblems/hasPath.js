@@ -41,4 +41,14 @@ const hasPath = (graph, src, dest) => {
   return false
 }
 
+const hasPathR = (graph, src, dest) => {
+  if (src === dest) return true;
+  for (let neighbor of graph[src]) {
+    if (hasPathR(graph, neighbor, dest) === true) return true
+  }
+  return false;
+}
+
 console.log(hasPath(graph, "a", "z"))
+
+console.log(hasPathR(graph, "a", "g"))
