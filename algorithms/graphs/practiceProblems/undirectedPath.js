@@ -32,7 +32,7 @@ const buildGraph = (edges) => {
     graph[b].push(a);
   }
 
-  return graph
+  return graph;
 }
 
 // undirectedPath - check if there is a path between two nodes in a cyclic undirected graph
