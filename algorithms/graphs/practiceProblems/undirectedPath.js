@@ -41,18 +41,18 @@ const buildGraph = (edges) => {
 const builtGraph = buildGraph(edges);
 
 const undirectedPath = (graph, src, dest, visited=new Set()) => {
+  if (!(src in graph)) return false;
   if (src === dest) return true;
-  if (!(src in graph)) return false
-  if (visited.has(src)) return false;
-  
+  if (visited.has(src)) return false; 
+
+  visited.add(src);
+
   for (let neighbor of graph[src]) {
-    visited.add(src);
-    if(undirectedPath(graph, neighbor, dest, visited) === true) return true;
+    if (undirectedPath(graph, neighbor, dest, visited) === true) return true;
   }
-  
+
   return false;
 }
-
 // better to do with depth first, but just for kicks
 const undirectedPathI = (graph, src, dest) => {
   if (!(src in graph)) return false;
@@ -73,7 +73,7 @@ const undirectedPathI = (graph, src, dest) => {
   return false;
 }
 
-console.log(undirectedPath(graph, "i", "k"));
+console.log(undirectedPath(graph, "a", "n"));
 console.log(undirectedPathI(graph, "i", "k"));
 
 
