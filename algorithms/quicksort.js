@@ -10,33 +10,31 @@ const unsorted2 = [20];
  * @description sorts integers in an unsorted array in nlogn time and n space
  */
 
-function quicksort(array, start=0, end=array.length - 1) {
+const quicksort = (array, start, end) => {
   if (start > end) return;
 
-  const partitionIndex = partition(array, start, end);
+  const pivotIndex = partition(array, start, end);
 
-  quicksort(array, start, partitionIndex - 1);
-  quicksort(array, partitionIndex + 1, end);
+  quicksort(array, start, pivotIndex - 1);
+  quicksort(array, pivotIndex + 1, end);
 }
 
-function partition(array, start, end) {
-  const pivotIndex = Math.floor((start + end) / 2)
-  const pivot = array[pivotIndex];
+const partition = (array, start, end) => {
+  const pivot = array[end];
 
-
-  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
-  let partitionIndex = start;
-
-  for(let i = start; i < end; i++) {
+  let pivotIndex = start;
+  for (let i = start; i < end; i++) {
     if (array[i] < pivot) {
-      [array[i], array[partitionIndex]] = [array[partitionIndex], array[i]];
-      partitionIndex++;
+      [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]]; 
+      pivotIndex++;
     }
   }
 
-  [array[partitionIndex], array[end]] = [array[end], array[partitionIndex]];
-  return partitionIndex;
+  [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
+
+  return pivotIndex;
 }
 
-quicksort(unsorted);
-console.log(unsorted);
+quicksort(unsorted, 0, unsorted.length - 1)
+
+console.log(unsorted)
