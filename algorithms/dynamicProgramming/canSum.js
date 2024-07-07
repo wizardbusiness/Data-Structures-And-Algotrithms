@@ -5,16 +5,11 @@ const canSum = (target, array, memo={}) => {
   if (target in memo) return memo[target];
   if (target === 0) return true;
   if (target < 0) return false;
-
   for (let num of array) {
-    let remainder = target - num;
-    if (canSum(remainder, array, memo) === true) {
-      memo[target] = true;
-      return true;
-    };
+    memo[target] = canSum(target - num, array);
+    if (memo[target] === true) return true;
   }
-  memo[target] = false;
-  return false;
+  return false
 }
 // m = height of tree / target value
 // n = breadth of tree / array length
@@ -28,5 +23,5 @@ const canSum = (target, array, memo={}) => {
 // since each 
 
 
-console.log(canSum(300, [7, 14]));
+console.log(canSum(30000, [7, 14, 1]));
 
