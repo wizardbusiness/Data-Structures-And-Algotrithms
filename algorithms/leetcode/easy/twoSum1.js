@@ -43,12 +43,12 @@
 
 // hash what you need, check if you have what you need
 function twoSum(array, target) {
-  const hash = {};
+  const memo = {};
   for (let i = 0; i < array.length; i++) {
-    if (target - array[i] in hash) return [hash[target - array[i]], i];
-    hash[array[i]] = i 
+    memo[array[i]] = i;
+    if ((target - array[i]) in memo) return [memo[target - array[i]], i]
   }
-  return -1;
+  return [];
 }
 
-console.log(twoSum([1, 2, 6, 4, 0], 2));
+console.log(twoSum([2, 2, 6, 4, 0], 13));
