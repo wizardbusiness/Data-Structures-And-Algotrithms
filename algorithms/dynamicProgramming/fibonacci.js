@@ -3,11 +3,11 @@
 // fib(n) = fib(n - 1) + fib(n - 2)
 
 
-const fib = (n, cache={}) => {
-  if (n in cache) return cache[n]
+const fib = (n, memo={}) => {
+  if (n in memo) return memo[n];
   if (n === 0 || n === 1) return 1;
-  cache[n] = fib(n - 1, cache) + fib(n - 2, cache)
-  return cache[n];
+  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+  return memo[n];
 }
 
 console.log(fib(4));
