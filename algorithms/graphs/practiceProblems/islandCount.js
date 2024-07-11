@@ -11,35 +11,38 @@ const grid = [
 
 // think about an xy position as a node
 
-
 const islandCount = (grid) => {
+
+  const visited = new Set();
   let count = 0;
-  let visited = new Set() // keep track of visited squares
+
   for (let r = 0; r < grid.length; r++) {
-    for (let c = 0; c < grid[0].length; c++) { // be mindful that grid may have a different number of columns than rows
-      if (exploreIslands(grid, r, c, visited) === true) count += 1;
+    for (let c = 0; c < grid[0].length; c++) {
+      if (exploreIsland(grid, r, c, visited) === true) count += 1;
     }
   }
+
   return count;
 }
 
-const exploreIslands = (grid, r, c, visited) => {
-  const rowInBounds = (0 <= r) && (r < grid.length);
-  const columnInBounds = (0 <= c) && (c < grid[0].length);
-
-  if (!rowInBounds || !columnInBounds) return false;
-
-  if (visited.has(r + "," + c)) return false;
-  visited.add(r + "," + c);
-  
+const exploreIsland = (grid, r, c, visited) => {
+  const tile = r + "," + c;
+  if (visited.has(tile)) return false;
+  visited.add(tile);
+  const rowInBound = r >= 0 && r < grid.length;
+  const colInBound = c >= 0 && c < grid[0].length;
+  if (!rowInBound || !colInBound) return false;
   if (grid[r][c] === "W") return false;
-
-  exploreIslands(grid, r - 1, c, visited);
-  exploreIslands(grid, r + 1, c, visited);
-  exploreIslands(grid, r, c - 1, visited);
-  exploreIslands(grid, r, c + 1, visited);
+  // explore left
+  exploreIsland(grid, r, c - 1, visited); 
+  // explore right
+  exploreIsland(grid, r, c + 1, visited);
+  // explore up
+  exploreIsland(grid, r - 1, c, visited);
+  // explore down
+  exploreIsland(grid, r + 1, c, visited);
 
   return true;
-}
+};
 
 console.log(islandCount(grid));
