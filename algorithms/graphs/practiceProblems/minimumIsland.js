@@ -9,38 +9,43 @@ const grid = [
 
 const minimumIsland = (grid) => {
   const visited = new Set();
-  let minSize = Infinity;
-
+  let minimum = Infinity; 
+ 
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[0].length; c++) {
-      const size = exploreSize(grid, r, c, visited)
-      if (size > 0) {
-        minSize = Math.min(size, minSize)
+      console.log(minimum);
+      const islandSize = exploreIsland(grid, r, c, visited);
+      if (islandSize > 0) {
+        minimum = Math.min(minimum, islandSize);
       }
     }
   }
 
-  return minSize;
+  return minimum
 }
 
-const exploreSize = (grid, r, c, visited) => {
-  const rowInBounds = 0 <= r && r < grid.length;
-  const colInBounds = 0 <= c && c < grid[0].length;
-
+const exploreIsland = (grid, r, c, visited) => {
+  const rowInBounds = r >= 0 && r < grid.length;
+  const colInBounds = c >= 0 && c < grid[0].length;
+  const tile = r + "," + c;
+  if (visited.has(tile)) return 0;
+  visited.add(tile);
   if (!rowInBounds || !colInBounds) return 0;
-
-  if (visited.has(r + ',' + c)) return 0;
-  visited.add(r + ',' + c);
-
   if (grid[r][c] === "W") return 0;
-
+  
   let count = 1;
 
-  count += exploreSize(grid, r - 1, c, visited);
-  count += exploreSize(grid, r + 1, c, visited);
-  count += exploreSize(grid, r, c - 1, visited);
-  count += exploreSize(grid, r, c + 1, visited);
-  return count; 
+  // left
+  count += exploreIsland(grid, r, c - 1, visited);
+  // right
+  count += exploreIsland(grid, r, c + 1, visited);
+  // up
+  count += exploreIsland(grid, r - 1, c, visited);
+  // down
+  count += exploreIsland(grid, r + 1, c, visited);
+  console.log(count)
+  return count;
+
 }
 
 console.log(minimumIsland(grid));
