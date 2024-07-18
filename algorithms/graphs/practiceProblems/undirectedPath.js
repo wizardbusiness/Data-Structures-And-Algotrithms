@@ -11,7 +11,7 @@ const edges = [
 
 // convert to adjacency list
 // cyclic graph, since connections are biderectional between nodes
-const graph = {
+const graphExample = {
   i: ["j", "k"],
   j: ["i", "k"],
   k: ["i", "j", "l", "m"],
@@ -25,27 +25,25 @@ const buildGraph = (edges) => {
   const graph = {};
 
   for (let edge of edges) {
-    const [a, b] = edge;
+    const [a, b] = edge
     if (!(a in graph)) graph[a] = [];
     if (!(b in graph)) graph[b] = [];
     graph[a].push(b);
     graph[b].push(a);
   }
-
   return graph;
 }
 
 // undirectedPath - check if there is a path between two nodes in a cyclic undirected graph
 // time o(e) where e is edges space o(n) where n is nodes
 
-const builtGraph = buildGraph(edges);
+const graph = buildGraph(edges);
 
 const undirectedPath = (graph, src, dest, visited=new Set()) => {
   if (!(src in graph)) return false;
-  if (src === dest) return true;
-  if (visited.has(src)) return false; 
-
+  if (visited.has(src)) return false;
   visited.add(src);
+  if (src === dest) return true;
 
   for (let neighbor of graph[src]) {
     if (undirectedPath(graph, neighbor, dest, visited) === true) return true;
@@ -73,7 +71,7 @@ const undirectedPathI = (graph, src, dest) => {
   return false;
 }
 
-console.log(undirectedPath(graph, "a", "n"));
+console.log(undirectedPath(graph, "i", "k"));
 console.log(undirectedPathI(graph, "i", "k"));
 
 
