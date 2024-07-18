@@ -1,6 +1,6 @@
 const grid = [
   ['W', 'L', 'W', 'W', 'L', 'W'],
-  ['L', 'L', 'W', 'W', 'L', 'W'],
+  ['L', 'L', 'W', 'W', 'W', 'W'],
   ['W', 'L', 'W', 'W', 'W', 'W'],
   ['W', 'W', 'W', 'L', 'L', 'W'],
   ['W', 'W', 'W', 'L', 'L', 'W'],
@@ -9,19 +9,18 @@ const grid = [
 
 const minimumIsland = (grid) => {
   const visited = new Set();
-  let minimum = Infinity; 
- 
+  let count = Infinity;
+
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[0].length; c++) {
-      console.log(minimum);
-      const islandSize = exploreIsland(grid, r, c, visited);
+      const islandSize = exploreIsland(grid, r, c, visited)
       if (islandSize > 0) {
-        minimum = Math.min(minimum, islandSize);
+        count = Math.min(count, islandSize)
       }
     }
   }
 
-  return minimum
+  return count;
 }
 
 const exploreIsland = (grid, r, c, visited) => {
@@ -43,7 +42,6 @@ const exploreIsland = (grid, r, c, visited) => {
   count += exploreIsland(grid, r - 1, c, visited);
   // down
   count += exploreIsland(grid, r + 1, c, visited);
-  console.log(count)
   return count;
 
 }
