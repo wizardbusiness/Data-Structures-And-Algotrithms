@@ -24,12 +24,14 @@ b.right = e;
 c.left = f;
 
 const maxPathSum = (root) => {
-  if (!root) return -Infinity;
+  if (!root) return -Infinity
   if (!root.left && !root.right) return root.value;
   const left = maxPathSum(root.left);
   const right = maxPathSum(root.right);
-  const maxChildPathSum = Math.max(left, right);
-  return root.value + maxChildPathSum;
+
+  const maxChildValue = Math.max(left, right);
+
+  return root.value + maxChildValue;
 }
 
-console.log(maxPathSum(a))
+console.log(maxPathSum(a));
