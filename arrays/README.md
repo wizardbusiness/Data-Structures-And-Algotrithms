@@ -1,11 +1,3 @@
----
-
-**************
-* ALGORITHMS *
-**************
-
----
-
 **Quick Sort**
 Description: Sorts an array in O(nLogn) time in place
 Key Concepts:
