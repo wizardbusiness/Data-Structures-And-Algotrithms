@@ -7,11 +7,13 @@
 const howSum = (target, numbers) => {
   if (target === 0) return [];
   if (target < 0) return null;
+
   for (let num of numbers) {
     const combination = howSum(target - num, numbers);
-    if (combination !== null) return [...combination, num]
-  }
+    if (combination !== null) return [...combination, num];
+  } 
+
   return null;
 }
 
-console.log(howSum(2, [5, 3, 4, 7]));
+console.log(howSum(21, [5, 3, 4, 7]));
