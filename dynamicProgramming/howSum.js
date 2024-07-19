@@ -4,16 +4,19 @@
 // you need to only return a single combination no matter how many combinations are possible. 
 
 
-const howSum = (target, numbers) => {
+const howSum = (target, numbers, memo={}) => {
+  if (target in memo) return memo[target];
   if (target === 0) return [];
   if (target < 0) return null;
 
   for (let num of numbers) {
-    const combination = howSum(target - num, numbers);
-    if (combination !== null) return [...combination, num];
+    const combination =  howSum(target - num, numbers, memo);
+    if (combination !== null) {
+      return memo[target] = [...combination, num]
+    };
   } 
-
-  return null;
+  memo[target] = null
+  return memo[target];
 }
 
-console.log(howSum(21, [5, 3, 4, 7]));
+console.log(howSum(20230, [3, 3, 4, 7]));
