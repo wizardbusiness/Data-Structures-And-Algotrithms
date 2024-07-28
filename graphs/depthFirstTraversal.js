@@ -25,12 +25,12 @@ const dfsIterative = (graph, src) => {
   }
 }
 
-const dfsRecursive = (graph, src, visited = new Set()) => {
-  visited.add(src);
+const dfsRecursive = (graph, src, visited = []) => {
+  visited.push(src);
   for (let neighbor of graph[src]) {
     dfsRecursive(graph, neighbor, visited);
   }
-  return [...visited];
+  return visited;
 }
 
 dfsIterative(graph, 'a')
