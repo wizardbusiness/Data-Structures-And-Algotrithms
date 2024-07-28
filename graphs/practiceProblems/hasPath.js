@@ -27,28 +27,12 @@ const graph = {
  * @returns 
  */
 
-// iterative acyclic graph
 const hasPath = (graph, src, dest) => {
-  const queue = [ src ];
-  while(queue.length > 0) {
-    const curr = queue.shift();
-    if (curr === dest) return true;
-    for (let neighbor of graph[curr]) {
-      queue.push(neighbor)
-    }
-  }
-
-  return false
-}
-
-const hasPathR = (graph, src, dest) => {
   if (src === dest) return true;
   for (let neighbor of graph[src]) {
-    if (hasPathR(graph, neighbor, dest) === true) return true
+    if (hasPath(graph, neighbor, dest) === true) return true;
   }
   return false;
 }
 
-console.log(hasPath(graph, "a", "z"))
-
-console.log(hasPathR(graph, "a", "g"))
+console.log(hasPath(graph, 'a', 'y'));
