@@ -66,8 +66,8 @@ const treeIncludesBFS = (root, value) => {
 const treeIncludesDFS = (root, value) => {
   if (root === null) return false;
   if (root.value === value) return true;
-  const left = treeIncludes(root.left, value);
-  const right = treeIncludes(root.right, value);
+  const left = treeIncludesDFS(root.left, value);
+  const right = treeIncludesDFS(root.right, value);
   if (left === true || right === true) return true;
   return false;
 }
