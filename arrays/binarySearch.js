@@ -9,15 +9,16 @@
  * space complexity O(logn);
  */
 
-function binarySearch(target, array, i=0, j=array.length - 1) {
+function binarySearch(target, array, i = 0, j = array.length - 1) {
   if (i > j) return -1;
-  const mid = Math.round((j + i) / 2);
-  console.log(mid)
-  
-  if(target === array[mid]) return mid;
+
+  const mid = Math.floor((i + j) / 2);
+
+  if (array[mid] === target) return mid;
   else if (target < array[mid]) return binarySearch(target, array, i, mid - 1);
-  else if (target > array[mid]) return binarySearch(target, array, mid + 1, j);
+  else return binarySearch(target, array, mid + 1, j);
 }
 
-console.log(binarySearch(8, [1, 2, 3, 4, 5, 8]));
+const sortedArray = [1, 2, 4, 50, 51];
+console.log(binarySearch(50, sortedArray));
 
