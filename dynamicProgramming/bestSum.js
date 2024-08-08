@@ -4,27 +4,33 @@
 
 // if theres a tie return any shortest combination
 
-const bestSum = (target, numbers, shortestCombination = []) => {
+const bestSum = (target, numbers, memo={}) => {
+  if (target in memo) return memo[target]
   if (target === 0) return [];
   if (target < 0) return null;
+  let shortestCombination = null
   for (let num of numbers) {
-    const combination = bestSum(target - num, numbers, shortestCombination);
+    combination = bestSum(target - num, numbers, memo);
     if (combination !== null) {
-      if (shortestCombination.length === 0) {
+      if (shortestCombination === null || combination.length < shortestCombination.length) {
         shortestCombination = [...combination, num]
       }
-      else if (combination.length < shortestCombination.length) {
-        shortestCombination = [...combination, num];
-      };
     };
-    console.log(shortestCombination)
   }
-    
-
+  memo[target] = shortestCombination;
   return shortestCombination;
 }
 
-const numbers = [8, 4, 3, 7];
+// brute force 
+// time O(n^m)
+// space O(m^2)
 
-console.log(bestSum(7, numbers))
+// memoized
+// time O(n * m^2)
+// space O(m^2)
+
+const numbers = [2, 3, 5];
+
+console.log(bestSum(30, numbers))
+console.log(bestSum(100, [1, 2, 5, 25]))
 
