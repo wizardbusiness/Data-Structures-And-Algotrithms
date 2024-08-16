@@ -33,19 +33,25 @@ const tree = a
 // depth first search
 // go as far as you can down 
 
-const depthFirstSearch = (src) => {
-  const order = [];
-  const stack = [ src ];
-  while(stack.length > 0) {
+const dfsIterative = (src) => {
+  const path = [];
+  const stack = [src];
+  while (stack.length > 0) {
     const currNode = stack.pop();
-    order.push(currNode.value)
-    const l = currNode.left;
-    const r = currNode.right;
-    if (r !== null) stack.push(r)
-    if (l !== null) stack.push(l)
+    path.push(currNode.value);
+    if (currNode.right !== null) stack.push(currNode.right);
+    if (currNode.left!== null) stack.push(currNode.left);
   }
+  return path
+}
 
-  return order;
-} 
 
-console.log(depthFirstSearch(tree));
+const dfsRecursive = (src) => {
+  if (src === null) return [];
+  const left = dfsRecursive(src.left);
+  const right = dfsRecursive(src.right);
+  return [src.value, ...left, ...right];
+}
+
+console.log(dfsIterative(tree));
+console.log(dfsRecursive(tree));
